@@ -1,0 +1,2 @@
+[start]
+cmd = "java $JAVA_OPTS -jar medpay-api/target/*jar -Dserver.port=$PORT -Dspring.datasource.username=$H2_US -Dspring.datasource.password=$H2_PW -Djwt.secret=$JWT_SECRET"
