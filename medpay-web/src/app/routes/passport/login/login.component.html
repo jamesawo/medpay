@@ -1,0 +1,58 @@
+<ngx-spinner [fullScreen]="true" size="medium" type="timer"></ngx-spinner>
+
+<form nz-form [formGroup]="form" (ngSubmit)="onSubmitForm()"
+      role="form" class='p-lr-10px p-mlr-10px'>
+    <nz-tabset [nzAnimated]="false" class="tabs" (nzSelectChange)="switch($event)">
+        <nz-tab [nzTitle]="'Login'" >
+
+            <nz-alert
+                *ngIf="error"
+                [nzType]="'error'"
+                [nzMessage]="error"
+                [nzShowIcon]="true"
+                [nzDescription]="errorDescription"
+                class="mb-lg"
+            ></nz-alert>
+
+            <ng-template #errorDescription>
+                <ul *ngFor='let error of errorList'>
+                    <li>{{error}}</li>
+                </ul>
+            </ng-template>
+
+            <nz-form-item>
+                <nz-form-control nzErrorTip="Please enter your username or email address">
+                    <nz-input-group nzSize="large" nzPrefixIcon="user">
+                        <input
+                            nz-input
+                            formControlName="userName"
+                            placeholder="username or email"
+                        />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <app-user-password [form]='form' [props]="{formControlName: 'password'}"></app-user-password>
+        </nz-tab>
+    </nz-tabset>
+    <nz-form-item>
+        <nz-col [nzSpan]="12">
+            <label nz-checkbox formControlName="remember">Remember me</label>
+        </nz-col>
+        <nz-col [nzSpan]="12" class="text-right">
+            <a class="forgot" routerLink="#">Forgot your password?</a>
+        </nz-col>
+    </nz-form-item>
+    <nz-form-item>
+        <button
+            nz-button
+            type="submit"
+            nzType="primary"
+            nzSize="large"
+            [nzLoading]="loading"
+            nzBlock
+        >
+            Login
+        </button>
+    </nz-form-item>
+</form>
+<div class="other"></div>

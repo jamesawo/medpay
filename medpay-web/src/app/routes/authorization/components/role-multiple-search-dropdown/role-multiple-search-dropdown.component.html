@@ -1,0 +1,25 @@
+<nz-form-item>
+    <nz-form-control  nzErrorTip='Role is required' [nzValidateStatus]="props?.hasError?'error': 'success' ">
+        <nz-form-label nzFor='' [nzNoColon]='true'>
+            <span class='text-red-dark m-r-3px' *ngIf='props?.required === true'>*</span>
+            <span>Select Role</span>
+        </nz-form-label>
+        <nz-select
+            [nzMaxTagCount]="3"
+            [nzMaxTagPlaceholder]="tagPlaceHolder"
+            nzPlaceHolder="Please select"
+            [(ngModel)]="value"
+            [nzSuffixIcon]="suffixIconSearch"
+            (ngModelChange)="onSelected($event)"
+            nzMode="multiple"
+            nzAllowClear
+        >
+            <nz-option *ngFor="let item of listOfOption" [nzLabel]="item.name" [nzValue]="item"></nz-option>
+        </nz-select>
+        <ng-template #tagPlaceHolder let-selectedList> and {{ selectedList.length }} more selected</ng-template>
+    </nz-form-control>
+
+    <ng-template #suffixIconSearch>
+        <span nz-icon [nzType]="!isLoading ? 'search': 'loading'"></span>
+    </ng-template>
+</nz-form-item>

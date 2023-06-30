@@ -1,0 +1,21 @@
+<page-header [title]="'Search for a hospital to configure'" [content]='content'>
+
+    <ng-template #content nz-row>
+        <div class='ph-main m-t-1em' nz-col nzSpan='24'>
+            <div nz-row class='m-b-2em'>
+                <div nz-col [nzXs]='24' [nzLg]='12' class='p-r-5px'>
+                    <app-hospital-search [props]='{trim: false, autoFocus: true}'
+                                         (selected)='onHospitalSelected($event)'
+                    ></app-hospital-search>
+                </div>
+
+                <div nz-col [nzXs]='24' [nzLg]='12' class='p-r-5px align-self-end m-t-sm-1em' style='height: 57px;'>
+                    <button nz-button nzSize='default' nzType='primary' (click)='onSearchHospital()'>Search</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+<nz-card>
+    <nz-empty></nz-empty>
+</nz-card>

@@ -1,0 +1,78 @@
+<page-header [title]="'Assign Permissions to Role'" [content]='content'>
+
+    <ng-template #content>
+        <div nz-row>
+
+            <div class='ph-main' nz-col nzSpan='24' [nzXs]='{ span: 24, offset: 0 }' [nzLg]='{ span: 24, offset: 0 }'>
+                <div nz-row>
+                    <div class='p-r-10px' nz-col nzSpan='12' [nzXs]='{ span: 24, offset: 0 }'
+                         [nzLg]='{ span: 12, offset: 0 }'>
+                        <app-role-search-dropdown [value]='searchPayload' (valueChange)='roleSelected($event)'></app-role-search-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class='ph-main m-t-1em m-t-sm-1em m-b-2em' nz-col nzSpan='24' [nzXs]='24' [nzLg]='24'>
+                <div nz-row nzJustify='space-between'>
+                    <div nz-col [nzSpan]='12' [nzXs]='10' [nzLg]='12'>
+                        <app-search-reset-button
+                            [props]='{
+                                onSearchAction: onSearch,
+                                isLoadingSearchResult: isLoading,
+                                onResetSearchPayload: onResetSearchPayload,
+                                onCancelAction: onCancelAction,
+                                hideSearchBtn: true
+                                }'
+                        ></app-search-reset-button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+</page-header>
+<nz-card>
+
+    <nz-empty *ngIf='!data.length'></nz-empty>
+
+    <div *ngIf='data.length'>
+        <h2>Add Permissions</h2>
+        <nz-alert [nzCloseable]='false' nzType='info' [nzMessage]='message'></nz-alert>
+
+        <ng-template #message>
+            <h3 *ngIf='searchPayload?.name'>
+                Selected Role: <code class='text-red' [innerHTML]='searchPayload?.name'></code>
+                <p><small>Permission count: <code class='text-red' [innerHTML]="count"></code> </small></p>
+            </h3>
+        </ng-template>
+
+        <nz-collapse nzGhost>
+            <nz-collapse-panel
+                *ngFor='let item of data'
+                [nzHeader]='format(item.module)'
+                [nzDisabled]='!searchPayload?.id'
+            >
+                <div class='ph-main' *ngFor='let permission of item.permissions'>
+                    <label class='p-b-10px' nz-checkbox
+                           [ngModel]='isSelected(permission)'
+                           (ngModelChange)='checkChanged($event, permission)'
+                    >
+                        <span class='p-l-5px' [innerText]='format(permission.name)'></span>
+                    </label>
+                </div>
+            </nz-collapse-panel>
+        </nz-collapse>
+
+        <div nz-col class='m-t-1em m-b-1em m-t-sm-1em m-b-sm-1em' [nzXs]='{ span: 12, offset: 0 }'
+             [nzLg]='{ span: 8, offset: 0 }'>
+            <button nz-button [nzSize]="'large'"
+                    nzType='primary'
+                    [nzLoading]='isLoading'
+                    [disabled]='isLoading'
+                    (click)='saveRole()'
+            >Save</button>
+        </div>
+    </div>
+
+
+</nz-card>

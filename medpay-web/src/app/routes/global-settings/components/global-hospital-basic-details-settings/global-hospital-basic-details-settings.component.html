@@ -1,0 +1,141 @@
+<form nz-form nzLayout='vertical'
+      [formGroup]="form" (ngSubmit)="onSubmitForm()" autocomplete='off'>
+
+    <div class='m-t-2em' nz-col [nzSpan]='24'>
+        <h3 class=''>Hospital Basic Details</h3>
+    </div>
+
+    <div class='m-t-1em m-t-sm-2em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Please enter hospital name">
+                        <nz-form-label>
+                            <span class='text-red-dark m-r-3px'>*</span>
+                            Hospital Name
+                        </nz-form-label>
+                        <input
+                            name='hospitalName'
+                            nz-input
+                            formControlName='name'
+                            type='text'
+                            placeholder='Enter hospital name'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class='m-t-sm-1em' nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='16'>
+                <nz-form-item >
+                    <nz-form-label>
+                        Hospital Logo URL
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='hospitalLogoUrl'
+                            type='text'
+                            placeholder='Enter uploaded logo link'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Support Admin Name
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='supportName'
+                            type='text'
+                            placeholder='Enter support name'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class='m-t-sm-1em' nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Support Email Address
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter primary support email">
+                        <input
+                            nz-input
+                            formControlName='supportEmail'
+                            type='email'
+                            placeholder='Enter email address'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class='m-t-sm-1em' nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Support Admin Phone
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='supportPhone'
+                            type='text'
+                            placeholder='Enter support phone'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <app-hospital-support-channel-dropdown
+                    [default]='payload?.data?.supportChannel'
+                    (selected)='onSupportChannelChanged($event)'
+                ></app-hospital-support-channel-dropdown>
+            </div>
+
+            <div class='m-t-sm-2em' nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Hospital Physical Address
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip="Please address">
+                        <textarea  nz-input
+                                   formControlName='hospitalAddress'
+                        ></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+        </div>
+    </div>
+
+    <div class='m-t-2em m-t-sm-2em' nz-col [nzXs]='24' [nzMd]='12' [nzLg]='6'>
+        <nz-form-item>
+            <button
+                nz-button
+                type="submit"
+                nzType="primary"
+                nzSize="large"
+                [nzLoading]="isLoading"
+                nzBlock
+            >
+                Update Details
+            </button>
+        </nz-form-item>
+    </div>
+
+</form>

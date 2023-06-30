@@ -1,0 +1,32 @@
+<page-header [content]="content">
+    <ng-template #content>
+        <div class="ph-main m-t-1em" nz-col nzSpan="24">
+            <div nz-row>
+                <div class="m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                    <nz-form-label nzFor="billNumber" [nzNoColon]="false">Date:</nz-form-label>
+                    <nz-form-control>
+                       <app-date-picker (selected)="onDateSelected($event)"></app-date-picker>
+                    </nz-form-control>
+                </div>
+                <div class="m-t-1em m-t-sm-2em m-b-2em" nz-col nzSpan="24" [nzXs]="24" [nzLg]="24">
+                    <div nz-row nzJustify="space-between">
+                        <div nz-col [nzSpan]="12" [nzXs]="10" [nzLg]="12">
+                            <button nz-button [nzSize]="'default'" nzType='primary'
+                                    (click)="onSearch()"
+                                    [nzLoading]="isLoading"
+                            >
+                                <span>Proceed</span>
+                                <span nz-icon nzType='check'></span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+
+<nz-card>
+    <nz-empty></nz-empty>
+</nz-card>

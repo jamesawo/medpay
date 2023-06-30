@@ -1,0 +1,45 @@
+<page-header [content]="content" [title]="props?.pageTitle??''" [autoBreadcrumb]="false">
+    <ng-template #content nz-row>
+        <div class="ph-main" nz-col nzSpan="24">
+            <app-transaction-search [(value)]="searchValues"
+                                    #transactionSearchComponent
+            ></app-transaction-search>
+        </div>
+        <div class="ph-main m-t-2em m-t-sm-2em m-b-2em" nz-col nzSpan="24" [nzXs]="24" [nzLg]="24">
+            <div nz-row nzJustify="space-between">
+                <div nz-col [nzSpan]="12" [nzXs]="10" [nzLg]="12">
+                    <app-search-reset-button
+                        [props]="{
+                                onSearchAction: onSearch,
+                                isLoadingSearchResult: isLoading,
+                                onResetSearchPayload: onResetSearchPayload,
+                                onCancelAction: onCancelAction
+                                }"
+                    ></app-search-reset-button>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+
+<nz-card>
+
+    <ng-container *ngIf="result && result.id; else emptyContent">
+
+        <app-transaction-status-preview
+            [props]="{
+                data: result,
+                canDownloadReceipt: props?.canDownloadReceipt,
+                canShowDetails: props?.canShowDetails,
+                onResetAction: onResetSearchPayload,
+                onCancelAction: onCancelAction
+            }"
+        ></app-transaction-status-preview>
+    </ng-container>
+
+    <ng-template #emptyContent>
+        <nz-empty></nz-empty>
+    </ng-template>
+
+</nz-card>

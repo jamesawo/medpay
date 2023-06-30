@@ -1,0 +1,91 @@
+<page-header [content]='content' [breadcrumb]='breadcrumb'>
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item><a>Home</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item><a>Global Settings</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item><a>Hospital Settings</a></nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+    <ng-template #content nz-row>
+        <div class='ph-main' nz-col nzSpan='24'>
+            <div nz-row class=''>
+                <div nz-col [nzXs]='24' [nzLg]='14' class=''>
+                    <div class='content-heading'>
+                        <h3 class='content-title support-item' [innerText]='hospital?.detail?.name'></h3>
+                        <p class='support-item'>
+                            <span nz-icon nzType='environment' nzTheme='outline'></span>
+                            <span class='m-l-3px' [innerText]="hospital?.detail?.hospitalAddress??'' "></span>
+                        </p>
+                    </div>
+
+                    <div class='support-heading'>
+                        <h3>
+                            <span nz-icon nzType='tag' nzTheme='outline'></span>
+                            Support Administrator: <span class='m-l-3px' [innerText]='hospital?.detail?.supportName'></span>
+                        </h3>
+                    </div>
+
+                    <div class='support-info support-item-wrapper'>
+                        <div>
+                            <a class='support-item'>
+                                <span class='m-t-5px' nz-icon nzType='mail' nzTheme='outline'></span>
+                                <span class='support-item-info' [innerText]="hospital?.detail?.supportEmail ?? ''"></span>
+                            </a>
+                        </div>
+
+                        <div>
+                            <a class='support-item'>
+                                <span class='m-t-5px' nz-icon nzType='phone' nzTheme='outline'></span>
+                                <span class='support-item-info' [innerText]="hospital?.detail?.supportPhone??'' "></span>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class='support-info m-t-1em support-item-wrapper'>
+                        <span class='support-item'>Mode of Collection: <a [innerText]="stripText(hospital?.collectionModelEnum)"></a> </span>
+                        <span class='support-item'>Preferred Support Channel: <a [innerText]='stripText(hospital?.detail?.supportChannel)'></a> </span>
+                    </div>
+                </div>
+
+                <div nz-col [nzXs]='8' [nzLg]='8' class='p-l-10px text-align-center dm-none'>
+                    <nz-skeleton-element nzType="image" [nzActive]="true" *ngIf='!isImageLoaded'></nz-skeleton-element>
+                    <img width='60%' (load)='onImageLoaded($event)' [src]='hospital?.detail?.hospitalLogoUrl' alt=''>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+
+<nz-card>
+    <nz-tabset [nzTabPosition]='position' >
+        <form nz-form nzLayout='vertical'>
+
+            <nz-tab nzTitle='Collection Mode'>
+                <app-global-hospital-collection-mode-settings
+                [hospital]='hospital' (hospitalChange)='updatePartial($event)'
+                #collectionModeSettingsComponent
+                ></app-global-hospital-collection-mode-settings>
+            </nz-tab>
+
+            <nz-tab nzTitle='Basic Details'>
+                <app-global-hospital-basic-details-settings
+                    [payload]='{id: hospital?.id, data: hospital?.detail}'
+                    (payloadChange)='onUpdated($event)' #basicDetailsSettingsComponent
+                ></app-global-hospital-basic-details-settings>
+            </nz-tab>
+
+            <nz-tab nzTitle='API Settings' [nzDisabled]="!hospital?.hasHospitalSoftware">
+                    <app-global-hospital-api-settings
+                        [payload]='{id: hospital?.id, data: hospital?.apiConfiguration}'
+                        (payloadChange)='onUpdateApi($event)' #apiSettingsComponent
+                    ></app-global-hospital-api-settings>
+            </nz-tab>
+
+            <nz-tab nzTitle='Settlement Settings' [nzDisabled]='true'>
+                <app-global-hospital-api-settings></app-global-hospital-api-settings>
+            </nz-tab>
+        </form>
+    </nz-tabset>
+</nz-card>
+
+

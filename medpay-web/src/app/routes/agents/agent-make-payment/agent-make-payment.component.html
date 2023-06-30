@@ -1,0 +1,21 @@
+<page-header [content]="content">
+    <ng-template #content></ng-template>
+</page-header>
+
+<nz-card>
+    <ng-container *ngIf="isAgentProfile; else notAgentTemplate">
+
+        <ng-container *ngIf="hospital?.hasHospitalSoftware === true; else servicePaymentRef">
+           <app-agents-bill-payment [props]="{hospitalId: hospital?.id}"></app-agents-bill-payment>
+        </ng-container>
+
+        <ng-template #servicePaymentRef>
+           <app-agents-service-payment [props]="{hospitalId: hospital?.id}"></app-agents-service-payment>
+        </ng-template>
+
+    </ng-container>
+
+    <ng-template #notAgentTemplate>
+        <nz-empty nzNotFoundContent="Become an agent, you must!"></nz-empty>
+    </ng-template>
+</nz-card>

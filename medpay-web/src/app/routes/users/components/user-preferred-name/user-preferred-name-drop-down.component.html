@@ -1,0 +1,28 @@
+<nz-form-item>
+    <nz-form-label nzFor='preferredName'>
+        Preferred Name
+        <span
+            nz-tooltip
+            nzTooltipTitle="Which of the names should be used to address the user? "
+            class='m-l-5px'
+            nz-icon
+            nzType='info-circle'
+            nzTheme='outline'
+        ></span>
+    </nz-form-label>
+    <nz-form-control nzErrorTip='Please select preferred name' [nzValidateStatus]="hasError?'error': 'success' ">
+        <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder='Select..'
+            name='authType'
+            [(ngModel)]='selectedValue'
+            (ngModelChange)='onSelected($event)'
+            nzStatus='error'
+        >
+            <nz-option *ngFor='let option of selectOptions'
+                       [nzLabel]='option.title'
+                       [nzValue]='option'></nz-option>
+        </nz-select>
+    </nz-form-control>
+</nz-form-item>

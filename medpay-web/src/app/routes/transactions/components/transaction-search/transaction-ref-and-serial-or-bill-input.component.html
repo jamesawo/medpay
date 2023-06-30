@@ -1,0 +1,51 @@
+<div nz-row >
+
+    <div class="p-r-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="24" *ngIf="props?.enableBillNumber === true">
+        <p>Select</p>
+        <nz-radio-group [(ngModel)]="value.selection" (ngModelChange)="onRadioSelectionChange($event)">
+            <label nz-radio [nzValue]="referenceOrSerial">Reference or Serial #</label>
+            <label class="m-l-10px" nz-radio [nzValue]="billNumber" >Bill Number</label>
+        </nz-radio-group>
+    </div>
+
+    <div class="p-r-5px  m-t-1em m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+        <nz-form-label nzFor="" [nzNoColon]="false"
+        >Reference #
+        </nz-form-label>
+        <nz-form-control>
+            <input nz-input name="referenceInputValue"
+                   [(ngModel)]="value.referenceValue"
+                   [disabled]="value.selection !== referenceOrSerial"
+                   (input)="onFieldValueChange($event)"
+                   type="text" placeholder="Enter reference number" />
+        </nz-form-control>
+    </div>
+
+    <div class="p-lr-5px m-t-1em m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+        <nz-form-label [nzNoColon]="false"
+        >Serial #
+        </nz-form-label>
+        <nz-form-control>
+            <input nz-input
+                   name="serialNumberInput"
+                   [(ngModel)]="value.serialNumberValue"
+                   (input)="onFieldValueChange($event)"
+                   [disabled]="value.selection !== referenceOrSerial"
+                   type="text" placeholder="Enter serial number" />
+        </nz-form-control>
+    </div>
+
+    <div class="p-l-5px m-t-1em m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8" *ngIf="props?.enableBillNumber === true">
+        <nz-form-label nzFor="billNumber" [nzNoColon]="false"
+        >Bill or Invoice #
+        </nz-form-label>
+        <nz-form-control>
+            <input nz-input name="billNumber"
+                   [disabled]="value.selection !== billNumber"
+                   (input)="onFieldValueChange($event)"
+                   [(ngModel)]="value.billNumberValue"
+                   type="text" placeholder="Enter bill or invoice number" />
+        </nz-form-control>
+    </div>
+
+</div>

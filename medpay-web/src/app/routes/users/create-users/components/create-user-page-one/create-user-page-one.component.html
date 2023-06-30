@@ -1,0 +1,90 @@
+<form nz-form nzLayout='vertical' [formGroup]='form' autocomplete='off'>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <h3 class='m-b-1em'>Account Details</h3>
+        <nz-form-item>
+            <nz-form-label>
+                <span class='text-red-dark m-r-3px'>*</span>
+                Nickname
+            </nz-form-label>
+            <nz-form-control nzErrorTip='Enter nickname'>
+                <input
+                    nz-input
+                    type='text'
+                    formControlName='nickName'
+                    placeholder='Enter nickname'
+                />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div class='m-t-2em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Email
+                    </nz-form-label>
+                    <nz-form-control [nzErrorTip]='errorTpl'>
+                        <input
+                            nz-input
+                            formControlName='email'
+                            type='text'
+                            placeholder='Enter email'
+                        />
+                        <ng-template #errorTpl let-control>
+                            <ng-container *ngIf="control.hasError('required')">Please enter email address</ng-container>
+                            <ng-container *ngIf="control.hasError('email')">Enter a valid email address</ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-label>
+                    <span class='text-red-dark m-r-3px'>*</span>
+                    Password
+                </nz-form-label>
+                <app-user-password [form]='form' [props]="{size: 'default'}"></app-user-password>
+            </div>
+
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class='wd-100p'>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Expiry Date
+                    </nz-form-label>
+                    <app-date-picker [hasError]='isExpiryDateInvalid'
+                                     [default]="user?.expiryDate ?? ''"
+                                     (selected)='onExpiryDateSelected($event)'
+                    ></app-date-picker>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+
+                <app-user-type-dropdown [props]='{required: true}'
+                                        [hasError]='isUserTypeInvalid'
+                                        [(value)]='form.value.userTypeEnum'
+                                        (valueChange)='onUserTypeSelected($event)'
+                ></app-user-type-dropdown>
+
+            </div>
+
+            <div nz-col [nzXs]='24' [nzMd]='12' [nzLg]='16'>
+                <nz-form-item class=''>
+                    <app-hospital-search [props]='{required: true}'
+                                         [defaultSelected]='user?.hospital'
+                                         (selected)='onHospitalSelected($event)'
+                    ></app-hospital-search>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+</form>

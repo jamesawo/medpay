@@ -1,0 +1,282 @@
+<page-header [title]="'Manage Hospital'" [breadcrumb]='breadcrumb' [action]='action' [content]='content'>
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item><a>Dashboard</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item><a>Hospital</a></nz-breadcrumb-item>
+            <nz-breadcrumb-item><a>View</a></nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+
+    <ng-template #action>
+        <app-expand-collapse-button [(open)]='isExpanded'></app-expand-collapse-button>
+    </ng-template>
+
+    <ng-template #content>
+        <form autocomplete='off' nz-form>
+            <div nz-row>
+                <div class='ph-main' nz-col nzSpan='24'>
+                    <app-hospital-search (value)='setHospitalName($event)'
+                                         (selected)='onHospitalSelected($event)' #hospitalSearchComponent
+                    ></app-hospital-search>
+                </div>
+
+                <ng-container *ngIf='isExpanded'>
+
+                    <div class='ph-main m-t-1em m-t-sm-1em' nz-col nzSpan='24'>
+                        <div nz-row>
+                            <div nz-col nzSpan='8' class='p-r-10px' [nzXs]='24' [nzLg]='8'>
+                                <nz-form-label nzFor='supportPerson' [nzNoColon]='true'
+                                >Support Person
+                                    <span
+                                        nz-tooltip
+                                        nzTooltipTitle='search hospitals by support administrator'
+                                        class='m-l-3px'
+                                        nz-icon
+                                        nzType='info-circle'
+                                        nzTheme='outline'
+                                    ></span>
+                                </nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input name='supportPerson' type='text'
+                                           [(ngModel)]='searchPayload.supportName'
+                                           id='supportPerson' placeholder='Enter support name' />
+                                </nz-form-control>
+                            </div>
+
+                            <div nz-col nzSpan='8' class='p-lr-10px m-t-sm-1em' [nzXs]='24' [nzLg]='8'>
+                                <app-hospital-support-channel-dropdown #channelDropdownComponent
+                                                                       [default]='searchPayload.channelEnum'
+                                                                       (selected)='onSupportChannelSelected($event)'></app-hospital-support-channel-dropdown>
+                            </div>
+
+                            <div nz-col nzSpan='8' class='p-l-10px m-t-sm-1em' [nzXs]='24'
+                                 [nzLg]='8'>
+                                <nz-form-label nzFor='dateOfCreation' [nzNoColon]='true'
+                                >Date of creation
+                                    <span
+                                        nz-tooltip
+                                        nzTooltipTitle='Choose a start and end date to search for hospital created between the dates.'
+                                        class='m-l-3px'
+                                        nz-icon
+                                        nzType='info-circle'
+                                        nzTheme='outline'
+                                    ></span>
+                                </nz-form-label>
+                                <app-range-date-picker #rangeDatePickerComponent
+                                                       (selected)='onDateRangeSelected($event)'></app-range-date-picker>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='ph-main m-t-1em m-t-sm-1em' nz-col nzSpan='24'>
+                        <div nz-row>
+
+                            <div nz-col class='p-r-10px' [nzXs]='24' [nzLg]='8'>
+                                <app-hospital-collection-mode-dropdown
+                                    (selected)='onCollectionModeSelected($event)'
+                                    #collectionModeDropdownComponent
+                                ></app-hospital-collection-mode-dropdown>
+                            </div>
+
+                            <div nz-col class='p-lr-10px m-t-sm-1em' [nzXs]='24' [nzLg]='8'>
+
+                                <app-hospital-environment-dropdown
+                                    (selected)='onEnvironmentSelected($event)'
+                                    #environmentDropdownComponent
+                                ></app-hospital-environment-dropdown>
+                            </div>
+
+                            <div nz-col class='p-lr-10px m-t-sm-1em' [nzXs]='24' [nzLg]='6'>
+
+                                <div nz-row>
+                                    <div nz-col [nzXs]='24' [nzLg]='12'>
+                                        <nz-form-label nzFor='isEnabled' [nzNoColon]='true' class=''
+                                        >Status
+                                            <span
+                                                nz-tooltip
+                                                nzTooltipTitle='search by current active or inactive status'
+                                                class='m-l-3px'
+                                                nz-icon
+                                                nzType='info-circle'
+                                                nzTheme='outline'
+                                            ></span>
+
+                                        </nz-form-label>
+                                        <nz-form-control>
+                                            <nz-switch
+                                                id='isEnabled'
+                                                name='isEnabledSwitch'
+                                                [ngModel]='searchPayload.isEnabled'
+                                                [nzCheckedChildren]='checkedTemplate'
+                                                [nzUnCheckedChildren]='unCheckedTemplate'
+                                                (ngModelChange)='onSwitchToggled($event, isEnabled)'
+                                            ></nz-switch>
+                                            <ng-template #checkedTemplate>ACTIVE <span nz-icon nzType='check'></span>
+                                            </ng-template>
+                                            <ng-template #unCheckedTemplate> INACTIVE <span nz-icon
+                                                                                            nzType='close'></span>
+                                            </ng-template>
+
+                                        </nz-form-control>
+                                    </div>
+
+                                    <div nz-col [nzXs]='24' [nzLg]='12'>
+                                        <nz-form-label nzFor='hasHmis' [nzNoColon]='true' class=''
+                                        >Has HMIS
+                                            <span
+                                                nz-tooltip
+                                                nzTooltipTitle='search hospitals using HMIS for bill searching & payment'
+                                                class='m-l-3px'
+                                                nz-icon
+                                                nzType='info-circle'
+                                                nzTheme='outline'
+                                            ></span>
+
+                                        </nz-form-label>
+                                        <nz-form-control>
+                                            <nz-switch
+                                                id='hasHmis'
+                                                name='hasHmisSwitch'
+                                                [ngModel]='searchPayload.hasHospitalSoftware'
+                                                [nzCheckedChildren]='checkedTemplateYes'
+                                                [nzUnCheckedChildren]='unCheckedTemplateNo'
+                                                (ngModelChange)='onSwitchToggled($event, hasSoftware)'
+                                            ></nz-switch>
+                                            <ng-template #checkedTemplateYes>YES <span nz-icon nzType='check'></span>
+                                            </ng-template>
+                                            <ng-template #unCheckedTemplateNo> NO <span nz-icon nzType='close'></span>
+                                            </ng-template>
+
+                                        </nz-form-control>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </ng-container>
+
+                <div class='ph-main m-t-2em m-t-sm-2em m-b-2em' nz-col nzSpan='24' [nzXs]='24' [nzLg]='24'>
+                    <div nz-row nzJustify='space-between'>
+                        <div nz-col [nzSpan]='12' [nzXs]='10' [nzLg]='12'>
+                            <app-search-reset-button
+                                [props]='{
+                                onSearchAction: onSearchResult,
+                                isLoadingSearchResult: isLoadingSearchResult,
+                                onResetSearchPayload: onResetSearchPayload,
+                                onCancelAction: onCancelAction
+                                }'
+                            ></app-search-reset-button>
+                        </div>
+
+                        <div nz-col class='text-align-end' [nzSpan]='12' [nzXs]='10' [nzLg]='12'>
+                            <app-export-upload-button [props]='{}'></app-export-upload-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </ng-template>
+</page-header>
+
+<nz-card>
+    <div class='wd-100p'>
+        <nz-table [nzData]='tableData'
+                  nzShowPagination
+                  nzShowSizeChanger
+                  (nzCurrentPageDataChange)='onCurrentPageDataChange($event)'
+                  #headerTable
+                  nzSize='middle'
+                  nzTableLayout='fixed'
+
+        >
+            <thead>
+            <tr class='text-uppercase'>
+                <th nzWidth='50px'
+                    [nzChecked]='allInCurrentPageChecked'
+                    [nzIndeterminate]='indeterminate' (nzCheckedChange)='onAllChecked($event)'
+                >
+                </th>
+                <th nzWidth='70px'></th>
+                <th nzWidth='200px'>Name</th>
+                <th nzWidth='200px'>Address</th>
+                <th nzWidth='300px'>Administrator</th>
+                <th nzWidth='200px'>Collection Mode</th>
+                <th nzWidth='100px'>Status</th>
+                <th nzWidth='100px'>Uses Hmis</th>
+                <th nzWidth='150px'>Setup Date</th>
+                <th nzWidth='150px'>Expiry Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor='let data of tableData' class='h-60px'>
+                <td
+                    [nzChecked]='setOfCheckedId.has(data.id??0)'
+                    [nzDisabled]='data.disabled'
+                    (nzCheckedChange)='onItemChecked($event, data.id)'
+                >
+                </td>
+                <td>
+                    <div class='w-max'>
+                    <span nz-icon nzType='setting' nzTheme='outline'
+                          nz-tooltip
+                          nzTooltipTitle='Goto settings & configuration tab'
+                          class='pointer m-r-10px'
+                    ></span>
+                        <span
+                            nz-icon nzType='edit' nzTheme='outline'
+                            nz-tooltip
+                            nzTooltipTitle='Update hospital information.'
+                            class='pointer'
+                        ></span>
+                    </div>
+                </td>
+                <td>{{ data.detail.name | uppercase }}</td>
+                <td>
+                <span nz-icon nzType='tag' nzTheme='outline'
+                      *ngIf='data.detail.hospitalAddress'></span>
+                    <span class='p-l-5px'>{{ data.detail.hospitalAddress | uppercase }}</span>
+                </td>
+                <td>
+                    <div class='w-max'>
+                     <span nz-icon nzType='eye' nzTheme='outline'
+                           nz-popconfirm
+                           nzPopconfirmTitle='View user details?'
+                           nzPopconfirmPlacement='topLeft'
+                           (nzOnConfirm)='onCancelAction()'
+                           (nzOnCancel)='onCancelAction()'
+                           *ngIf='data.detail.supportName'
+                     >
+                </span>
+                        <a class='p-l-10px'>{{data.detail.supportName ?? 'NiL' | uppercase}}</a>
+                        <br>
+                        <small *ngIf='data.detail.supportPhone'>
+                            <span nz-icon nzType='phone' nzTheme='outline'></span>
+                            <a class='p-l-5px'
+                               href='tel:{{data.detail.supportPhone}}'>{{data.detail.supportPhone}}</a>
+                        </small>
+                        <small class='p-l-10px' *ngIf='data.detail.supportEmail'>
+                            <span nz-icon nzType='mail' nzTheme='outline'></span>
+                            <a class='p-l-2px'
+                               href='mailto:{{data.detail.supportEmail}}'> {{data.detail.supportEmail | uppercase}}</a>
+                        </small>
+                    </div>
+
+                </td>
+                <td>{{ data.collectionModelEnum }}</td>
+                <td>
+                   <app-status-badge [status]='data?.isEnabled!'></app-status-badge>
+                </td>
+                <td>
+                    <app-status-badge [status]='!data.hasHospitalSoftware' [props]='{style: 2}'></app-status-badge>
+                </td>
+                <td>{{data.startDate | date}}</td>
+                <td>{{data.expiryDate | date}}</td>
+            </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</nz-card>

@@ -1,0 +1,189 @@
+<form nz-form nzLayout='vertical'
+      [formGroup]='form' (ngSubmit)='onSubmitForm()' autocomplete='off'>
+
+    <div class='m-t-2em' nz-col [nzSpan]='24'>
+        <h3>Hospital API Configuration</h3>
+    </div>
+
+    <div nz-col [nzSpan]='18' [nzXs]='24'>
+
+        <div nz-row nz-col>
+            <div nz-col [nzSpan]='24' [nzXs]='24' [nzLg]='12' class='p-r-10px  m-t-1em '>
+                <nz-form-item>
+                    <nz-form-control>
+                        <app-hospital-environment-dropdown [props]='{required: true}'
+                                                           [hasError]='isInvalidEnvironment'
+                                                           (selected)='onEnvironmentSelected($event)'
+                                                           [default]='payload?.data?.environmentEnum'
+                        ></app-hospital-environment-dropdown>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div class='m-t-1em p-l-10px' nz-col [nzSpan]='24' [nzXs]='24' [nzLg]='12'>
+                <nz-form-item>
+                    <app-hospital-auth-type-dropdown [hasError]='isInvalidAuthType'
+                                                     [default]='payload?.data?.authenticationType'
+                                                     (selected)='onAuthTypeSelected($event)'
+                    ></app-hospital-auth-type-dropdown>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div class='m-t-2em m-t-sm-1em ' nz-col [nzSpan]='24' [nzXs]='24' [nzLg]='24'>
+            <nz-form-item class=''>
+                <nz-form-label nzFor=''>
+                    <span class='text-red-dark m-r-3px'>*</span>
+                    Live API Base URL
+                    <span
+                        nz-tooltip
+                        nzTooltipTitle='Live Base URI to the hospital software'
+                        class='m-l-5px'
+                        nz-icon
+                        nzType='info-circle'
+                        nzTheme='outline'
+                    ></span>
+                </nz-form-label>
+
+                <nz-form-control nzErrorTip='Please enter live base url'>
+                    <input nz-input formControlName='apiBaseUrl' placeholder='Enter live instance base url' required>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div class='m-t-2em m-t-sm-1em ' nz-col [nzSpan]='24' [nzXs]='24' [nzLg]='24'>
+            <nz-form-item class=''>
+                <nz-form-label nzFor=''>
+                    <span class='text-red-dark m-r-3px'>*</span>
+                    Test API Base URL
+                    <span
+                        nz-tooltip
+                        nzTooltipTitle='Test Base URI to the hospital software (usually for demo and testing)'
+                        class='m-l-5px'
+                        nz-icon
+                        nzType='info-circle'
+                        nzTheme='outline'
+                    ></span>
+                </nz-form-label>
+
+                <nz-form-control nzErrorTip='Please enter test base url'>
+                    <input nz-input formControlName='apiTestBaseUrl' placeholder='Enter test base url'>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div class='m-t-2em m-t-sm-1em' nz-col [nzSpan]='24' [nzXs]='24' [nzLg]='24'>
+            <nz-form-item class=''>
+                <nz-form-label>
+                    <span class='text-red-dark m-r-3px'>*</span>
+                    Search Bill Endpoint
+                    <small class='p-mlr-5px p-l-5px'>(without base url)</small>
+                </nz-form-label>
+                <nz-input-group [nzAddOnBefore]='addOnBeforeSearchTemplate'>
+                    <nz-form-control nzErrorTip='Enter search endpoint'>
+                        <input type='text' nz-input formControlName='searchBillEndpoint'
+                               placeholder='Enter search bill endpoint' />
+                    </nz-form-control>
+
+                </nz-input-group>
+                <ng-template #addOnBeforeSearchTemplate>
+                    <nz-select formControlName='searchBillMethod' class='' style='width: 90px;'>
+                        <nz-option nzLabel='POST' nzValue='POST'></nz-option>
+                        <nz-option nzLabel='GET' nzValue='GET'></nz-option>
+                        <nz-option nzLabel='PUT' nzValue='PUT'></nz-option>
+                        <nz-option nzLabel='PATCH' nzValue='PATCH'></nz-option>
+                    </nz-select>
+                </ng-template>
+            </nz-form-item>
+        </div>
+
+        <div class='m-t-2em m-t-sm-1em' nz-col [nzSpan]='24' [nzXs]='24' [nzLg]='24'>
+            <nz-form-item class=''>
+                <nz-form-label>
+                    <span class='text-red-dark m-r-3px'>*</span>
+                    Pay Bill Endpoint
+                    <small class='p-mlr-5px p-l-5px'>(without base url)</small>
+                </nz-form-label>
+
+                    <nz-input-group [nzAddOnBefore]='addOnBeforeTemplate'>
+                        <nz-form-control nzErrorTip='Enter pay endpoint'>
+                        <input type='text' nz-input formControlName='payBillEndpoint'
+                               placeholder='Enter search bill endpoint' />
+                        </nz-form-control>
+                    </nz-input-group>
+                    <ng-template #addOnBeforeTemplate>
+                        <nz-select formControlName='payBillMethod' class='' style='width: 90px;'>
+                            <nz-option nzLabel='POST' nzValue='POST'></nz-option>
+                            <nz-option nzLabel='GET' nzValue='GET'></nz-option>
+                            <nz-option nzLabel='PUT' nzValue='PUT'></nz-option>
+                            <nz-option nzLabel='PATCH' nzValue='PATCH'></nz-option>
+                        </nz-select>
+                    </ng-template>
+
+            </nz-form-item>
+        </div>
+
+        <div nz-row nz-col class='m-t-2em m-t-sm-2em'>
+            <div nz-col [nzSpan]='24' [nzXs]='12' class='p-r-10px p-mr-10px'>
+                <nz-form-item class=''>
+                    <nz-form-label nzFor=''>
+                        Public Token
+                    </nz-form-label>
+                    <app-user-password
+                        [form]='form'
+                        [props]="{size: 'default', formControlName: 'publicToken', icon: 'key'}"
+                    ></app-user-password>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='24' [nzXs]='12' class='p-ml-10px p-l-10px'>
+                <nz-form-item class=''>
+                    <nz-form-label nzFor=''>
+                        Private Token
+                    </nz-form-label>
+                    <app-user-password [form]='form'
+                                       [props]="{size: 'default', formControlName: 'privateToken', icon: 'tool'}"
+                    ></app-user-password>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div nz-row nz-col class='m-t-1em m-t-sm-1em'>
+            <div nz-col [nzSpan]='24' [nzXs]='12' class='p-r-10px p-mr-10px'>
+                <nz-form-item class=''>
+                    <nz-form-label nzFor=''>
+                        Oauth Token
+                    </nz-form-label>
+                    <app-user-password [form]='form'
+                                       [props]="{size: 'default', formControlName: 'oauthToken', icon: 'cluster'}"></app-user-password>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='24' [nzXs]='12' class='p-l-10px p-ml-10px '>
+                <nz-form-item class=''>
+                    <nz-form-label nzFor=''>
+                        Api Secrete Key
+                    </nz-form-label>
+                    <app-user-password [form]='form'
+                                       [props]="{size: 'default', formControlName: 'apiKey', icon: 'api'}"></app-user-password>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-2em m-t-sm-2em' nz-col [nzXs]='24' [nzMd]='12' [nzLg]='6'>
+        <nz-form-item>
+            <button
+                nz-button
+                type='submit'
+                nzType='primary'
+                nzSize='large'
+                [nzLoading]='isLoading'
+                nzBlock
+            >
+                Update Details
+            </button>
+        </nz-form-item>
+    </div>
+</form>
+

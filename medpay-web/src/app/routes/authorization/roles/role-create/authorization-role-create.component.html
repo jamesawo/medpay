@@ -1,0 +1,57 @@
+<nz-page-header></nz-page-header>
+<nz-card>
+    <div nz-row>
+        <div nz-col [nzXs]='{ span: 24, offset: 0 }' [nzLg]='{ span: 18, offset: 0 }'>
+            <form nz-form [nzLayout]="'vertical'" autocomplete='off' (submit)='submit()' [formGroup]='form'>
+                <h2 class='m-b-2em'>Add New Row</h2>
+
+                <div  nz-row class='ph-main'>
+
+                    <div class='m-t-2em m-t-sm-2em' nz-col [nzSpan]='24' [nzLg]='24' [nzXs]='24'>
+                        <nz-form-item>
+                            <nz-form-label>Title</nz-form-label>
+                            <nz-form-control nzErrorTip='Title is required'>
+                                <input
+                                    nz-input
+                                    formControlName='name'
+                                    type='text'
+                                    placeholder='Enter title'
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div class='m-t-2em m-t-sm-2em' nz-col [nzSpan]='24' [nzLg]='24' [nzXs]='24'>
+                        <nz-form-item>
+                            <nz-form-label>Description</nz-form-label>
+                            <nz-form-control nzErrorTip='description is required'>
+                                <textarea nz-input formControlName='description'  placeholder='Enter description' cols='10' rows='2'></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24' [nzLg]='12' [nzXs]='24'>
+                        <nz-form-item class=''>
+                            <nz-form-label class=''>Status</nz-form-label>
+                            <app-switch-toggle  [(value)]="status"></app-switch-toggle>
+                        </nz-form-item>
+                    </div>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24'>
+                        <div nz-row  nzJustify='space-between'>
+                            <div nz-col [nzSpan]='12'>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <button nz-button nzType='primary' nzSize='large' [nzLoading]='isLoading'>
+                                            Submit
+                                        </button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nz-card>

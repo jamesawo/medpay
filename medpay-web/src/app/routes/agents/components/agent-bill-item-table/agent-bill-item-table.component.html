@@ -1,0 +1,22 @@
+<nz-table
+    class="table"
+    nzSize='small'
+    nzTableLayout='auto'
+    [nzShowPagination]="false" #basicTable [nzData]="dataList">
+    <thead>
+    <tr>
+        <th nzWidth="1px"></th>
+        <th nzWidth="70px">Description</th>
+        <th nzWidth="10px">Qty</th>
+        <th nzWidth="20px">Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of props?.items; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ data?.description }}</td>
+        <td>{{ data?.quantity }}</td>
+        <td>{{ data?.amount }}</td>
+    </tr>
+    </tbody>
+</nz-table>

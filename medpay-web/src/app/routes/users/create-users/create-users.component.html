@@ -1,0 +1,106 @@
+<nz-page-header></nz-page-header>
+<nz-card>
+    <div nz-row>
+        <div nz-col
+             class='m-t-5em m-lr-10px dm-none'
+             [nzXs]='{ span: 24, offset: 1 }'
+             [nzLg]='{ span: 4, offset: 0 }'
+        >
+            <nz-steps
+                [nzCurrent]='index'
+                nzDirection='vertical'
+                class='h-200px align-items-center'
+                (nzIndexChange)='onIndexChange($event)'
+            >
+                <nz-step></nz-step>
+                <nz-step></nz-step>
+                <nz-step></nz-step>
+            </nz-steps>
+        </div>
+        <div nz-col [nzXs]='24' [nzLg]='18'>
+            <form nz-form [nzLayout]="'vertical'" (submit)='submit()' autocomplete='off' >
+
+                <h2 class='m-b-2em'>
+                    Create User
+                    <small class='m-l-3px'>
+                        (fields marked
+                        <span class='text-red-dark m-r-3px'>*</span> are required)
+                    </small>
+                </h2>
+
+                <ng-container *ngIf='index === 0' nz-row>
+                    <app-create-user-page-one
+                                              [user]='user'
+                                              (userChange)='onUserChange($event)'
+                                              #createUserPageOneComponent
+                    ></app-create-user-page-one>
+                </ng-container>
+
+                <ng-container *ngIf='index === 1' nz-row>
+                    <app-create-user-page-two
+                        [user]='user'
+                        (userChange)='onUserChange($event)'
+                        #createUserPageTwoComponent></app-create-user-page-two>
+                </ng-container>
+
+                <ng-container *ngIf='index === 2' nz-row>
+                    <app-create-user-page-three
+                        [user]='user'
+                        (userChange)='onUserChange($event)'
+                        #createUserPageThreeComponent
+                    ></app-create-user-page-three>
+                </ng-container>
+
+                <div class='m-t-1em' nz-col [nzSpan]='24'>
+                    <div nz-row  nzJustify='space-between'>
+                        <div nz-col [nzSpan]='8'>
+                            <nz-form-item>
+                                <button
+                                    class='w-max'
+                                    nz-button
+                                    type="submit"
+                                    nzType="primary"
+                                    nzSize="large"
+                                    [disabled]='isLoading'
+                                    [nzLoading]='isLoading'
+                                >
+                                    Save
+                                </button>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzSpan]='12'>
+                            <nz-form-item>
+                                <nz-form-control class='text-align-end'>
+
+                                    <button nz-button
+                                            type='button'
+                                            nzType='default'
+                                            nzSize='large'
+                                            (click)='pre()'
+                                            *ngIf='index >= 1'
+                                    >
+                                        <span nz-icon nzType="caret-left" nzTheme="outline"></span>
+                                        Prev
+                                    </button>
+
+                                    <button nz-button  type='button'
+                                            nzType='default'
+                                            nzSize='large'
+                                            (click)='next()' *ngIf='index < 2'
+                                    >
+                                        Next
+                                        <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+                                    </button>
+
+                                    <p><small class='text-red-dark m-r-3px'>* save before leaving current page</small></p>
+
+                                </nz-form-control>
+
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nz-card>

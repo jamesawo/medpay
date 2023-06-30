@@ -1,0 +1,20 @@
+<nz-form-item>
+    <nz-form-label nzFor="paymentCollectionMode">
+        <span class="text-red-dark m-r-3px" *ngIf="props?.required">*</span>
+        Select Revenue Head
+    </nz-form-label>
+    <nz-form-control nzErrorTip="Revenue head is required" [nzValidateStatus]="props?.hasError?'error': 'success' ">
+        <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="Select.."
+            name="revenueHead"
+            [(ngModel)]="value"
+            (ngModelChange)="onSelected($event)"
+            nzStatus="error"
+        >
+            <nz-option [nzLabel]="'ALL'" [nzValue]="optionAll" *ngIf="hasData && props?.addOptionAll === true"></nz-option>
+            <nz-option *ngFor="let option of data" [nzLabel]="option.title" [nzValue]="option"></nz-option>
+        </nz-select>
+    </nz-form-control>
+</nz-form-item>

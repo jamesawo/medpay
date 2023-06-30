@@ -1,0 +1,28 @@
+
+<nz-form-label nzFor='transactionStatus'>
+    <span class='text-red-dark m-r-3px' *ngIf='props.required'>*</span>
+    Transaction Status
+    <span
+        nz-tooltip
+        nzTooltipTitle='Select Transaction Status'
+        class='m-l-5px'
+        nz-icon
+        nzType='info-circle'
+        nzTheme='outline'
+    ></span>
+</nz-form-label>
+<nz-form-control nzErrorTip='Transaction status is required' [nzValidateStatus]="hasError?'error': 'success' ">
+    <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder='Select..'
+        name='transactionStatus'
+        [(ngModel)]='selectedValue'
+        (ngModelChange)='onSelected($event)'
+        nzStatus='error'
+    >
+        <nz-option *ngFor='let option of selectOptions'
+                   [nzLabel]='option.title'
+                   [nzValue]='option'></nz-option>
+    </nz-select>
+</nz-form-control>

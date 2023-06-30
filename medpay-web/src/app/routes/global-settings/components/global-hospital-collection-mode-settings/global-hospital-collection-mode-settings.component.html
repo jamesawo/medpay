@@ -1,0 +1,79 @@
+<form nz-form nzLayout='vertical'
+      [formGroup]="form" (ngSubmit)="submitForm()" autocomplete='off'>
+
+    <div class='m-t-2em' nz-col [nzSpan]='24'>
+        <h3 class=''>Collection Mode Settings</h3>
+    </div>
+
+    <div class='m-t-1em m-t-sm-2em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <app-hospital-collection-mode-dropdown
+                    [hasError]='hasCollectionModeError'
+                    [default]='hospital?.collectionModelEnum'
+                    (selected)='onCollectionModelSelected($event)'
+                ></app-hospital-collection-mode-dropdown>
+            </div>
+
+            <div class='m-t-sm-1em' nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='16'>
+                <nz-form-item >
+                    <nz-form-label>
+                        Expiry Date
+                    </nz-form-label>
+                    <app-date-picker
+                        [hasError]='hasExpiryDateError'
+                        [default]="hospital?.expiryDate??''"
+                        (selected)='onExpiryDateSelected($event)'
+                    ></app-date-picker>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                   <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Current Active Status
+                    </nz-form-label>
+                    <app-switch-toggle [hasError]='hasActiveStatusError'
+                                       [value]='hospital?.isEnabled'
+                                       (valueChange)='onIsEnabledChanged($event)'
+                    ></app-switch-toggle>
+                </nz-form-item>
+            </div>
+
+            <div class='m-t-sm-1em' nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Use Hospital Software (HMIS)?
+                    </nz-form-label>
+                    <app-switch-toggle [hasError]='hasUseSoftwareError'
+                                       [value]='hospital?.hasHospitalSoftware'
+                                       (valueChange)='onUseSoftwareChanged($event)'
+                    ></app-switch-toggle>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+
+    <div class='m-t-2em' nz-col [nzXs]='24' [nzMd]='12' [nzLg]='6'>
+        <nz-form-item>
+            <button
+                nz-button
+                type="submit"
+                nzType="primary"
+                nzSize="large"
+                [nzLoading]="isLoading"
+                nzBlock
+            >
+                Update Details
+            </button>
+        </nz-form-item>
+    </div>
+
+</form>

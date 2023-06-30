@@ -1,0 +1,49 @@
+<div class="ph-main m-t-1em" nz-col nzSpan="24">
+    <div nz-row>
+        <div class="m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="12">
+            <app-service-search [props]="{hospitalId: this.props?.hospitalId}" (valueChange)="onServiceSelected($event)"></app-service-search>
+        </div>
+
+        <div class="m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="24" nz-row>
+
+            <div nz-col [nzXs]="24" [nzLg]="12" class="table">
+                <nz-table
+                    [nzShowPagination]="false"
+                    [nzData]="selectedServices"
+                    [nzSimple]="true"
+                    [nzShowQuickJumper]="false"
+                    [nzShowSizeChanger]="false"
+                    nzSize='middle' nzTableLayout='fixed'>
+                    <thead>
+                    <tr class='text-uppercase'>
+                        <th nzWidth='10px'></th>
+                        <th nzWidth='150px'>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor='let data of selectedServices; let i = index' class='h-60px'>
+                        <td>{{i +1 }}</td>
+                        <td>{{data.title}}</td>
+                    </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+
+        </div>
+
+        <div class="m-t-1em m-t-sm-2em m-b-2em" nz-col nzSpan="24" [nzXs]="24" [nzLg]="24">
+            <div nz-row nzJustify="space-between">
+                <div nz-col [nzSpan]="12" [nzXs]="10" [nzLg]="12">
+                    <button nz-button [nzSize]="'default'" nzType='primary'
+                            (click)="onAdd()"
+                            [nzLoading]="isLoading"
+                    >
+                        <span>Proceed</span>
+                        <span nz-icon nzType='check'></span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<nz-page-header></nz-page-header>
+<nz-card>
+    <div nz-row>
+        <div
+            class='m-t-5em dm-none'
+            nz-col
+            [nzXs]='24'
+            [nzLg]='2'
+        >
+            <nz-steps
+                [nzCurrent]='index'
+                nzDirection='vertical'
+                class='h-max'
+                (nzIndexChange)='onIndexChange($event)'
+            >
+                <nz-step class='h-100px' *ngFor='let index of steps'></nz-step>
+            </nz-steps>
+        </div>
+        <div nz-col [nzXs]='{ span: 24, offset: 0 }' [nzLg]='{ span: 20, offset: 0 }'>
+            <form nz-form [nzLayout]="'vertical'" autocomplete='off'>
+                <nz-alert
+                    *ngIf="error"
+                    [nzType]="'error'"
+                    [nzMessage]="error"
+                    [nzShowIcon]="true"
+                    [nzDescription]="errorDescription"
+                    [nzCloseable]='true'
+                    nzCloseText='Close'
+                    class="mb-lg"
+                    (nzOnClose)='onClearError()'
+                ></nz-alert>
+                <ng-template #errorDescription>
+                    <ul *ngFor='let error of errorList'>
+                        <li>{{error}}</li>
+                    </ul>
+                </ng-template>
+
+                <!-- page 1 -->
+                <ng-container *ngIf='index === 0'>
+                    <app-hospital-create-page-one [payload]='hospitalPayload' ></app-hospital-create-page-one>
+                </ng-container>
+
+                <!-- page 2 -->
+                <ng-container *ngIf='index === 1'>
+                    <app-hospital-create-page-two [addStep]='addStep' [payload]='hospitalPayload' ></app-hospital-create-page-two>
+                </ng-container>
+
+                <!-- page 3: api configuration -->
+                <ng-container *ngIf='index === 2'>
+                    <app-hospital-create-page-three [payload]='hospitalPayload'></app-hospital-create-page-three>
+                </ng-container>
+
+                <div class='m-t-1em' nz-col [nzSpan]='24'>
+                    <div nz-row  nzJustify='start'>
+                        <div nz-col [nzSpan]='6' [nzLg]='12' [nzXs]='12'>
+                            <nz-form-item>
+                                <nz-form-control class=''>
+
+                                    <button nz-button nzType='default' nzSize='large' (click)='pre()' *ngIf='index >= 1'>
+                                        <span nz-icon nzType="caret-left" nzTheme="outline"></span>
+                                        Previous
+                                    </button>
+
+                                    <button nz-button nzType='default' nzSize='large' (click)='next()' *ngIf='index < (steps.length - 1)'>
+                                        Next
+                                        <span nz-icon nzType="caret-right" nzTheme="outline"></span>
+                                    </button>
+
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div nz-col [nzSpan]='6' [nzLg]='6' [nzXs]='12' *ngIf='index === (steps.length -1)'>
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <button nz-button nzType='primary' nzSize='large' (click)='submit()'>
+                                        Submit
+                                    </button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nz-card>

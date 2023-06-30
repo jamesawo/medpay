@@ -1,0 +1,116 @@
+<div nz-col [nzSpan]='18' [nzXs]='24'>
+    <h3>Create Hospital (API Config)</h3>
+
+    <nz-form-item class='m-t-1em'>
+        <nz-form-label nzFor=''>
+            <span class='text-red-dark m-r-3px'>*</span>
+            Live or Test Environment ?
+        </nz-form-label>
+
+        <nz-form-control>
+            <nz-switch
+                [ngModel]="isLive"
+                [nzCheckedChildren]="checkedTemplate"
+                [nzUnCheckedChildren]="unCheckedTemplate"
+                (ngModelChange)='onSwitchToggled($event)'
+            ></nz-switch>
+            <ng-template #checkedTemplate>LIVE <span nz-icon nzType="check"></span></ng-template>
+            <ng-template #unCheckedTemplate> TEST <span nz-icon nzType="close"></span></ng-template>
+
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-1em'>
+        <nz-form-label nzFor=''>
+            <span class='text-red-dark m-r-3px'>*</span>
+            Live API Base URL
+            <span
+                nz-tooltip
+                nzTooltipTitle='Live Base URI to connection to HMIS'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+
+        <nz-form-control>
+            <input nz-input name='liveBaseUri' [(ngModel)]='payload.apiConfiguration.apiBaseUrl' placeholder='Enter live base url'>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-1em'>
+        <nz-form-label nzFor=''>
+            <span class='text-red-dark m-r-3px'>*</span>
+            Test API Base URL
+            <span
+                nz-tooltip
+                nzTooltipTitle='Test Base URI to connection to HMIS (usually for demo and testing)'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+
+        <nz-form-control>
+            <input nz-input name='testBaseUri' [(ngModel)]='payload.apiConfiguration.apiTestBaseUrl' placeholder='Enter test base url'>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-1em'>
+        <app-hospital-auth-type-dropdown [default]='payload.apiConfiguration.authenticationType' (selected)='onAuthTypeSelected($event)'></app-hospital-auth-type-dropdown>
+    </nz-form-item>
+
+    <div nz-row nz-col>
+        <div nz-col [nzSpan]='24' [nzXs]='12' class='p-r-10px p-mr-10px'>
+            <nz-form-item class='m-t-1em'>
+                <nz-form-label nzFor=''>
+                    Public Token
+                </nz-form-label>
+
+                <nz-form-control>
+                    <input nz-input nzSize='default' name='publicToken' [(ngModel)]='payload.apiConfiguration.publicToken' placeholder='Enter public token'>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]='24' [nzXs]='12' class='p-ml-10px p-l-10px'>
+            <nz-form-item class='m-t-1em'>
+                <nz-form-label nzFor=''>
+                    Private Token
+                </nz-form-label>
+
+                <nz-form-control>
+                    <input nz-input nzSize='default' name='privateToken' [(ngModel)]='payload.apiConfiguration.privateToken' placeholder='Enter private token'>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+
+    <div nz-row nz-col>
+        <div nz-col [nzSpan]='24' [nzXs]='12' class='p-r-10px p-mr-10px'>
+            <nz-form-item class='m-t-1em'>
+                <nz-form-label nzFor=''>
+                    Oauth Token
+                </nz-form-label>
+
+                <nz-form-control>
+                    <input nz-input nzSize='default' name='oauthToken' [(ngModel)]='payload.apiConfiguration.oauthToken' placeholder='Enter oauth token'>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+
+        <div nz-col [nzSpan]='24' [nzXs]='12' class='p-l-10px p-ml-10px '>
+            <nz-form-item class='m-t-1em'>
+                <nz-form-label nzFor=''>
+                    Api Secrete Key
+                </nz-form-label>
+
+                <nz-form-control>
+                    <input nz-input nzSize='default' name='apiKey' [(ngModel)]='payload.apiConfiguration.apiKey' placeholder='Enter api secrete key'>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+</div>

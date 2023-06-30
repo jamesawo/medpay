@@ -1,0 +1,79 @@
+<form nz-form nzLayout='vertical' [formGroup]='form' autocomplete='off' >
+
+    <div class='m-t-1em m-b-2em' nz-col [nzSpan]='24'>
+        <h3 class=''>Address Details</h3>
+    </div>
+
+    <div class='' nz-col [nzSpan]='24'>
+        <nz-form-item class=''>
+            <nz-form-label>
+                <span class='text-red-dark m-r-3px'>*</span>
+                Current Address
+            </nz-form-label>
+            <nz-form-control nzErrorTip='Please enter current address'>
+                <textarea rows="2" formControlName='currentAddress' nz-input placeholder='Enter current place of residence' required ></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+    <div class='m-t-1em m-t-sm-1em' nz-col [nzSpan]='24'>
+        <nz-form-item class=''>
+            <nz-form-label>
+                <span class='text-red-dark m-r-3px'>*</span>
+                Emergency Address
+            </nz-form-label>
+            <nz-form-control nzErrorTip='Please enter emergency address'>
+                <textarea rows="2" formControlName='emergencyAddress' nz-input placeholder='Enter emergency address' required></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+
+    <div class='m-t-2em m-t-sm-2em ' nz-col [nzSpan]='24'>
+        <h3 class='m-b-2em'>Transaction Setting</h3>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+
+        <div nz-row nzGutter='12'>
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <app-user-limit-type-dropdown
+                    (valueChange)='onLimitTypeChange($event)'
+                    [value]="user?.configuration?.limitType"
+                    [hasError]='limitTypeHasError'></app-user-limit-type-dropdown>
+            </div>
+
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>Minimum</nz-form-label>
+                    <nz-form-control nzErrorTip='Please enter min limit'>
+                        <input
+                            nz-input
+                            formControlName='minLimit'
+                            type='number'
+                            placeholder='Enter minimum value'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>Maximum</nz-form-label>
+                    <nz-form-control nzErrorTip='Please enter max limit'>
+                        <input
+                            nz-input
+                            formControlName='maxLimit'
+                            type='number'
+                            placeholder='Enter maximum value'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+    </div>
+
+
+</form>
+

@@ -1,0 +1,203 @@
+<form nz-form nzLayout='vertical'
+      [nzNoColon]='true' [formGroup]='form' (submit)='submit()'>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <h3 class=''>User Personal Information</h3>
+    </div>
+
+    <div class='m-t-2em m-t-sm-2em' nz-col [nzSpan]='24'>
+
+        <div nz-row nzGutter='12'>
+
+            <div nz-col [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        First Name
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip='Please enter first name'>
+                        <input
+                            nz-input
+                            formControlName='firstName'
+                            type='text'
+                            placeholder='Enter first name'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em' [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Last Name
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip='Please enter lastname'>
+                        <input
+                            nz-input
+                            formControlName='lastName'
+                            type='text'
+                            placeholder='Enter last name'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em'  [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>
+                        <span class='text-red-dark m-r-3px'>*</span>
+                        Other Name
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip='Please enter other name'>
+                        <input
+                            nz-input
+                            formControlName='otherName'
+                            type='text'
+                            placeholder='Enter other name'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col class='m-t-sm-1em'  [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item>
+                    <nz-form-label>
+                        Phone Number
+                    </nz-form-label>
+                    <nz-form-control nzErrorTip='Please enter phone number'>
+                        <input
+                            nz-input
+                            formControlName='phoneNumber'
+                            type='text'
+                            placeholder='Enter phone number'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em' [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item >
+                    <nz-form-label>
+                        Preferred Pronoun
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='preferredPronoun'
+                            type='text'
+                            placeholder='Enter preferred pronoun'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em' [nzSpan]='8' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <app-user-gender-dropdown
+                    [props]='{required: true}'
+                    [hasError]="isGenderInvalid"
+                    [value]="user?.basicDetails?.gender"
+                    (valueChange)='onGenderSelected($event)'
+                ></app-user-gender-dropdown>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col class='m-t-sm-1em'  [nzSpan]='12' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item class=''>
+                    <app-user-preferred-name-drop-down
+                        [value] = "user?.basicDetails?.preferredName"
+                        (valueChange)="onPreferredNameSelected($event)"
+                    ></app-user-preferred-name-drop-down>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em'  [nzSpan]='12' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item >
+                    <nz-form-label>
+                        Emergency Phone Number
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='emergencyPhone'
+                            type='text'
+                            placeholder='Enter emergency phone number'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em'  [nzSpan]='12' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item >
+                    <nz-form-label>
+                        Short description
+                    </nz-form-label>
+                    <nz-form-control>
+                        <textarea nz-input
+                                  formControlName="personalStatement"
+                        ></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+
+    <div class='m-t-1em' nz-col [nzSpan]='24'>
+        <div nz-row nzGutter='12'>
+            <div nz-col class='m-t-sm-1em' [nzSpan]='12' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item >
+                    <nz-form-label>
+                        Facebook Profile
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='socialFb'
+                            type='text'
+                            placeholder='Enter fb profile link'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em' [nzSpan]='12' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item >
+                    <nz-form-label>
+                        IG Profile
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='socialIg'
+                            type='text'
+                            placeholder='Enter IG profile link'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col class='m-t-sm-1em'  [nzSpan]='12' [nzXs]='24' [nzMd]='12' [nzLg]='8'>
+                <nz-form-item >
+                    <nz-form-label>
+                        LinkedIn Profile
+                    </nz-form-label>
+                    <nz-form-control>
+                        <input
+                            nz-input
+                            formControlName='socialLkd'
+                            type='text'
+                            placeholder='Enter LinkedIn profile'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </div>
+</form>

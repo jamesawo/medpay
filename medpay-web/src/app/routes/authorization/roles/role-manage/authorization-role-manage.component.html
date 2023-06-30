@@ -1,0 +1,117 @@
+<page-header [title]="'Manage Role'"  [content]='content'>
+
+    <ng-template #content>
+        <div nz-row>
+
+            <div class='ph-main m-b-1em' nz-col nzSpan='24' [nzXs]="{ span: 24, offset: 0 }" [nzLg]="{ span: 24, offset: 0 }">
+                <div nz-row>
+                    <div class='p-r-10px'  nz-col nzSpan='12' [nzXs]="{ span: 24, offset: 0 }" [nzLg]="{ span: 24, offset: 0 }" >
+                        <nz-form-label nzFor='' [nzNoColon]='true'
+                        >Enter role title
+                        </nz-form-label>
+                        <nz-form-control>
+                            <input nz-input name='roleName' [(ngModel)]='searchPayload.name' placeholder='Search by title' />
+                        </nz-form-control>
+                    </div>
+                </div>
+            </div>
+
+            <div class='ph-main m-t-2em m-t-sm-2em m-b-2em' nz-col nzSpan='24' [nzXs]='24' [nzLg]='24'>
+                <div nz-row nzJustify='space-between'>
+                    <div nz-col [nzSpan]='12' [nzXs]='10' [nzLg]='12'>
+                        <app-search-reset-button
+                            [props]='{
+                                onSearchAction: onSearchResult,
+                                isLoadingSearchResult: isLoadingSearchResult,
+                                onResetSearchPayload: onResetSearchPayload,
+                                onCancelAction: onCancelAction
+                                }'
+                        ></app-search-reset-button>
+                    </div>
+
+                    <div nz-col class='text-align-end' [nzSpan]='12' [nzXs]='10' [nzLg]='12'>
+                        <app-export-upload-button [props]='{}'></app-export-upload-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+
+</page-header>
+
+
+<nz-card>
+    <div class='wd-100p'>
+        <nz-table [nzData]='tableData'
+                  nzShowPagination
+                  nzShowSizeChanger
+                  #headerTable
+                  nzSize='middle'
+                  nzTableLayout='fixed'
+        >
+            <thead>
+            <tr class='text-uppercase'>
+                <th nzWidth='50px'
+                    [nzChecked]='false'
+                >
+                </th>
+                <th nzWidth='70px'></th>
+                <th nzWidth='200px'>Title</th>
+                <th nzWidth='100px'>Status</th>
+                <th nzWidth='150px'>Date Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor='let data of tableData' class='h-60px'>
+                <td
+                    [nzChecked]='false'
+                    [nzDisabled]='false'
+                >
+                </td>
+                <td>
+                    <div class='w-max'>
+                        <span
+                            nz-icon nzType='edit' nzTheme='outline'
+                            nz-tooltip
+                            nzTooltipTitle='Update Role'
+                            class='pointer'
+                            (click)="createTplModal(tplTitle, tplContent, tplFooter, data)"
+                        ></span>
+                    </div>
+                </td>
+                <td>{{data?.name}}</td>
+                <td>
+                    <app-status-badge [status]='data?.status'></app-status-badge>
+                </td>
+                <td>
+                    {{data?.createdAt | date}}
+                </td>
+            </tr>
+            </tbody>
+        </nz-table>
+    </div>
+
+
+    <ng-template #tplTitle>
+        <span>Update Role</span>
+    </ng-template>
+    <ng-template #tplContent let-params>
+        <div class='p-l-10px m-t-sm-1em' nz-col nzSpan='12' [nzXs]='24' [nzLg]='24'>
+            <nz-form-label [nzNoColon]='true'>Title</nz-form-label>
+            <nz-form-control>
+                <input nz-input name='title' [(ngModel)]="params.name" type='text' placeholder='Enter title' />
+            </nz-form-control>
+        </div>
+        <div class='p-l-10px m-t-1em m-t-sm-1em' nz-col nzSpan='12' [nzXs]='24' [nzLg]='24'>
+            <nz-form-label [nzNoColon]='true'>Status</nz-form-label>
+            <app-switch-toggle [(value)]="params.status"></app-switch-toggle>
+        </div>
+    </ng-template>
+    <ng-template #tplFooter let-ref="modalRef">
+        <button nz-button (click)="ref.destroy()">Cancel</button>
+        <button nz-button nzType="primary" (click)="updateRole(ref)" [nzLoading]="isUpdating">
+            Submit
+        </button>
+    </ng-template>
+</nz-card>

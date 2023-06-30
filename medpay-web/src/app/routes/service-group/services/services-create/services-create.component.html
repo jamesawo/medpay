@@ -1,0 +1,75 @@
+<nz-page-header></nz-page-header>
+<nz-card>
+    <div nz-row>
+        <div nz-col [nzXs]='{ span: 24, offset: 0 }' [nzLg]='{ span: 18, offset: 0 }'>
+            <form nz-form [nzLayout]="'vertical'" autocomplete='off' [formGroup]='form' (submit)='submit()'>
+                <h2 class='m-b-2em'>Add New Service</h2>
+                <div nz-row class='ph-main'>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24'>
+                        <div class='m-t-1em' nz-col [nzSpan]='24'>
+                            <app-hospital-search
+                                [props]='{required: true, hasError: isHospitalInvalid}'
+                                (selected)='onHospitalSelected($event)'
+                                #hospitalSearchComponent
+                            ></app-hospital-search>
+                        </div>
+                    </div>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24'>
+                        <app-service-group-search
+                            (valueChange)="onServiceGroupSelected($event)"
+                            [props]="{hasError: isServiceGroupInvalid}"
+                            #serviceGroupSearchComponent
+                        ></app-service-group-search>
+                    </div>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24'>
+                        <app-revenue-head-search
+                            [(value)]="revenueHead"
+                            [props]="{hasError: isRevenueHeadInvalid}"
+                            #revenueHeadSearchComponent
+                        ></app-revenue-head-search>
+                    </div>
+
+                    <div class='m-t-1em m-t-sm-1em' nz-col [nzSpan]='24' [nzLg]='12' [nzXs]='24'>
+                        <nz-form-item>
+                            <nz-form-label>Service Title</nz-form-label>
+                            <nz-form-control nzErrorTip='Title is required'>
+                                <input
+                                    nz-input
+                                    formControlName='title'
+                                    type='text'
+                                    placeholder='Enter title'
+                                />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24' [nzLg]='12' [nzXs]='24'>
+                        <nz-form-item class='p-l-20px'>
+                            <nz-form-label class='m-t-5px '>Status</nz-form-label>
+                            <app-switch-toggle  [(value)]="isEnabled"></app-switch-toggle>
+                        </nz-form-item>
+                    </div>
+
+                    <div class='m-t-1em' nz-col [nzSpan]='24'>
+                        <div nz-row nzJustify='space-between'>
+                            <div nz-col [nzSpan]='12'>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <button nz-button nzType='primary' nzSize='large'
+                                                [disabled]='isLoading'
+                                                [nzLoading]='isLoading'>
+                                            Submit
+                                        </button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</nz-card>

@@ -1,0 +1,56 @@
+<div nz-col [nzSpan]='18' [nzXs]='24'>
+    <h3>Create Hospital</h3>
+
+    <nz-form-item class='m-t-2em'>
+        <app-hospital-support-channel-dropdown [default]='payload.detail.supportChannel'
+                                               (selected)='onSupportChannelSelected($event)'></app-hospital-support-channel-dropdown>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <app-hospital-collection-mode-dropdown [props]='{required: true}' [default]='payload.collectionModelEnum'
+                                               (selected)='onCollectionModeSelected($event)'></app-hospital-collection-mode-dropdown>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='paymentCollectionMode'>
+            <span class='text-red-dark m-r-3px'>*</span>
+            Does the Hospital use Hospital Management Software (HMIS)?
+            <span
+                nz-tooltip
+                nzTooltipTitle='Does this hospital connect with any HMIS to retrieve patient bill information?'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+
+        <nz-form-control>
+            <nz-radio-group
+                (ngModelChange)='onHasSoftwareSelected($event)'
+                [(ngModel)]='payload.hasHospitalSoftware' nzButtonStyle='solid'>
+                <label nz-radio-button [nzValue]='true'>YES</label>
+                <label nz-radio-button [nzValue]='false'>NO</label>
+            </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='subscriptionDate'>
+            Select Subscription Expiration Date.
+            <span
+                nz-tooltip
+                nzTooltipTitle='Choose a date in the future'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+
+        <nz-form-control>
+           <app-date-picker [default]='payload.expiryDate' (selected)='onExpirationDateSelected($event)'></app-date-picker>
+        </nz-form-control>
+    </nz-form-item>
+
+</div>

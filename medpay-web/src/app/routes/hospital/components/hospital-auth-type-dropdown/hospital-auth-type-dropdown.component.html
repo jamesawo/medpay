@@ -1,0 +1,27 @@
+<nz-form-label nzFor='paymentCollectionMode'>
+    <span class='text-red-dark m-r-3px' *ngIf='props.required'>*</span>
+    API Auth Type
+    <span
+        nz-tooltip
+        nzTooltipTitle='Authentication type type used when establishing connection with HMIS?'
+        class='m-l-5px'
+        nz-icon
+        nzType='info-circle'
+        nzTheme='outline'
+    ></span>
+</nz-form-label>
+<nz-form-control nzErrorTip='Authentication type is required'  [nzValidateStatus]="hasError?'error': 'success' ">
+    <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder='Select..'
+        name='authType'
+        [(ngModel)]='selectedValue'
+        (ngModelChange)='onSelected($event)'
+        nzStatus='error'
+    >
+        <nz-option *ngFor='let option of selectOptions'
+                   [nzLabel]='option.title'
+                   [nzValue]='option'></nz-option>
+    </nz-select>
+</nz-form-control>

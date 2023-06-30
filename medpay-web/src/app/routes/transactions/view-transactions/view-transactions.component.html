@@ -1,0 +1,228 @@
+<page-header [title]="'Manage Transactions'" [action]="action" [content]="content">
+    <ng-template #action>
+        <app-expand-collapse-button [(open)]="isExpanded"></app-expand-collapse-button>
+    </ng-template>
+
+    <ng-template #content nz-row>
+        <div class="ph-main m-t-1em" nz-col nzSpan="24">
+            <div nz-row>
+                <div nz-col [nzXs]="24" [nzLg]="12" class="p-r-5px">
+                    <app-hospital-search
+                        [defaultSelected]="searchPayload.hospital"
+                        (selected)="onHospitalSelected($event)"
+                        #hospitalSearchComponent
+                    ></app-hospital-search>
+                </div>
+
+                <div nz-col [nzXs]="24" [nzLg]="12" class="p-l-5px m-t-sm-1em">
+                    <nz-form-control>
+                        <app-user-search-dropdown
+                            [value]="searchPayload.user"
+                            (valueChange)="onUserSelected($event)"
+                            #userSearchDropdownComponent
+                        ></app-user-search-dropdown>
+                    </nz-form-control>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngIf="isExpanded">
+            <div class="ph-main m-t-1em" nz-col nzSpan="24">
+                <div nz-row>
+                    <div class="p-r-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                        <nz-form-label [nzNoColon]="true">Reference # </nz-form-label>
+                        <nz-form-control>
+                            <input
+                                nz-input
+                                name="reference"
+                                [(ngModel)]="searchPayload.reference"
+                                type="text"
+                                placeholder="Enter reference number"
+                            />
+                        </nz-form-control>
+                    </div>
+
+                    <div class="p-lr-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                        <nz-form-label [nzNoColon]="true">Serial # </nz-form-label>
+                        <nz-form-control>
+                            <input
+                                nz-input
+                                name="serial"
+                                [(ngModel)]="searchPayload.serial"
+                                type="text"
+                                placeholder="Enter serial number"
+                            />
+                        </nz-form-control>
+                    </div>
+
+                    <div class="p-l-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                        <nz-form-label nzFor="billNumber" [nzNoColon]="true"
+                            >Bill Number
+                        </nz-form-label>
+                        <nz-form-control>
+                            <input
+                                nz-input
+                                name="billNumber"
+                                [(ngModel)]="searchPayload.billNumber"
+                                type="text"
+                                placeholder="Enter bill or invoice number"
+                            />
+                        </nz-form-control>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ph-main m-t-1em" nz-col nzSpan="24">
+                <div nz-row>
+                    <div class="p-r-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                        <app-transaction-status-dropdown
+                            (valueChange)="onTransactionStatusSelected($event)"
+                            #transactionStatusDropdownComponent
+                        >
+                        </app-transaction-status-dropdown>
+                    </div>
+
+                    <div class="p-lr-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                        <nz-form-label nzFor="" [nzNoColon]="true">Date</nz-form-label>
+                        <nz-form-control>
+                            <app-range-date-picker
+                                (selected)="onDateRangeSelected($event)"
+                                #rangeDatePickerComponent
+                            ></app-range-date-picker>
+                        </nz-form-control>
+                    </div>
+
+                    <div class="p-l-5px m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="8">
+                        <nz-form-label nzFor="" [nzNoColon]="true">Payer details </nz-form-label>
+                        <nz-form-control>
+                            <input
+                                nz-input
+                                name="payer"
+                                [(ngModel)]="searchPayload.payer"
+                                type="text"
+                                placeholder="Enter bill or invoice number"
+                            />
+                        </nz-form-control>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="ph-main m-t-2em m-t-sm-2em m-b-2em" nz-col nzSpan="24" [nzXs]="24" [nzLg]="24">
+            <div nz-row nzJustify="space-between">
+                <div nz-col [nzSpan]="12" [nzXs]="10" [nzLg]="12">
+                    <app-search-reset-button
+                        [props]="{
+                            onSearchAction: onSearch,
+                            isLoadingSearchResult: isLoading,
+                            onResetSearchPayload: onResetSearchPayload,
+                            onCancelAction: onCancelAction
+                        }"
+                    ></app-search-reset-button>
+                </div>
+
+                <div nz-col class="text-align-end" [nzSpan]="12" [nzXs]="10" [nzLg]="12">
+                    <app-export-upload-button [props]="{}"></app-export-upload-button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+
+<nz-card>
+    <div class="wd-100p">
+        <nz-table
+            [nzData]="tableList"
+            [nzShowSizeChanger]="true"
+            [nzShowPagination]="true"
+            [nzLoading]="isLoading"
+            [(nzPageIndex)]="pageRequest.pageNumber"
+            (nzPageIndexChange)="onPageIndexChange($event)"
+            [(nzPageSize)]="pageRequest.pageSize"
+            (nzPageSizeChange)="onPageSizeChange($event)"
+            nzPaginationType="small"
+            #headerTable
+            nzSize="middle"
+            nzTableLayout="fixed"
+        >
+            <thead>
+                <tr class="text-uppercase">
+                    <th
+                        nzWidth="50px"
+                        [nzChecked]="false"
+                        (nzCheckedChange)="onAllChecked($event)"
+                    ></th>
+                    <th nzWidth="70px"></th>
+                    <th nzWidth="200px">Reference#</th>
+                    <th nzWidth="200px">Serial#</th>
+                    <th nzWidth="150px">Amount</th>
+                    <th nzWidth="200px">Status</th>
+                    <th nzWidth="200px">Agent</th>
+                    <th nzWidth="200px">Payment</th>
+                    <th nzWidth="200px">Payer</th>
+                    <th nzWidth="150px">Date</th>
+                    <th nzWidth="150px">Time</th>
+                    <th nzWidth="200px">Hospital</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of tableData" class="h-60px">
+                    <td
+                        [nzChecked]="false"
+                        [nzDisabled]="false"
+                        (nzCheckedChange)="onItemChecked(data?.id, $event)"
+                    ></td>
+                    <td>
+                        <div class="w-max">
+                            <span
+                                nz-icon
+                                nzType="eye"
+                                nzTheme="outline"
+                                nz-tooltip
+                                nzTooltipTitle="View transaction details."
+                                class="pointer"
+                            ></span>
+                        </div>
+                    </td>
+                    <td>
+                        <p
+                            nz-typography
+                            nzCopyable
+                            [nzContent]="data?.reference"
+                            [nzCopyTooltips]="['click to copy', copedIcon]"
+                            [nzCopyIcons]="['copy', 'smile']"
+                        ></p>
+                    </td>
+                    <td>
+                        <p
+                            nz-typography
+                            nzCopyable
+                            [nzCopyTooltips]="null"
+                            [nzContent]="data?.token"
+                        ></p>
+                    </td>
+                    <td>{{ getAmount(data?.amount) }}</td>
+                    <td>
+                        <nz-tag [nzColor]="getTagColor(data?.statusEnum)">{{
+                            splitEnum(data?.statusEnum) | uppercase
+                        }}</nz-tag>
+                    </td>
+                    <td>{{ concatUserName(data?.user) | uppercase }}</td>
+                    <td>{{ getPayment(data?.paymentDetail) | uppercase }}</td>
+                    <td>
+                        <span>{{ getPayer(data?.payerDetail) | uppercase }}</span> <br />
+                        <small>Phone: {{ data?.payerDetail?.phoneNumber | uppercase }}</small>
+                    </td>
+                    <td>{{ data?.date | date }}</td>
+                    <td>{{ onFormatTime(data?.time) }}</td>
+                    <td>{{ getHospitalName(data?.hospital) | uppercase }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <div class="text-align-end m-t-1em"></div>
+    </div>
+    <ng-template #copedIcon>
+        <span nz-icon nzType="smile" nzTheme="fill"></span>
+        Copied!!
+    </ng-template>
+</nz-card>

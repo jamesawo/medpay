@@ -1,0 +1,79 @@
+<ng-container *ngIf="props && props?.data?.id">
+    <nz-result
+        [nzStatus]="getTransactionStatus()"
+        [nzTitle]="detailTitle"
+        [nzSubTitle]="getSubDetail()"
+    >
+        <div class="ph-main" nz-result-content *ngIf="props?.canShowDetails === true">
+            <div class="desc">
+                <h5 class="txt-18" nz-title>More Details:</h5>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Payer Info: <a> {{ getPayerInfo() }}</a>
+                </p>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Payer Phone: <a> {{ getPhone() }}</a>
+                </p>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Transaction Amount: <a> {{ getAmount() }}</a>
+                </p>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Transaction Date: <a [innerHTML]="getDate()"></a>
+                </p>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Transaction Time: <a> {{ onFormatTime() }}</a>
+                </p>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Agent Staff: <a> {{getUserName()}} </a>
+                </p>
+
+                <p class="txt-18" nz-paragraph>
+                    <span nz-icon nzType="check"></span>
+                    Hospital: <a> {{getHospitalName()}} </a>
+                </p>
+            </div>
+        </div>
+
+        <div nz-result-extra >
+            <ng-container *ngIf="!receiptDataUrl">
+                <button nz-button
+                        nz-popconfirm
+                        nzPopconfirmTitle="Are you sure you want to reset?"
+                        nzPopconfirmPlacement="topLeft"
+                        (nzOnConfirm)="props.onResetAction()"
+                        (nzOnCancel)="props.onCancelAction()">Clear
+                </button>
+
+                <button nz-button
+                        class="m-t-sm-1em"
+                        nzType="primary"
+                        [disabled]="!isSuccessfulTransaction()"
+                        *ngIf="props.canDownloadReceipt === true"
+                        (click)="onPreviewReceipt()"
+                >Preview Receipt
+                </button>
+            </ng-container>
+        </div>
+    </nz-result>
+</ng-container>
+
+<ng-container *ngIf="receiptDataUrl">
+    <app-transaction-receipt-viewer
+        [data]='receiptDataUrl'
+        [props]="{
+                downloadAction: onDownloadReceipt,
+                printAction: onPrintAction
+            }"
+        #transactionReceiptViewerComponent></app-transaction-receipt-viewer>
+</ng-container>

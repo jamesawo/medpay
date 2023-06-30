@@ -1,0 +1,21 @@
+<button nz-button [nzSize]="'large'" nzType='primary'
+        (click)="props.onSearchAction()"
+        [nzLoading]="props.isLoadingSearchResult"
+        *ngIf='!props?.hideSearchBtn === true'
+>
+    <span *ngIf='displayTest'>Search</span>
+    <span nz-icon nzType='search'></span>
+</button>
+<button nz-button [nzSize]="'large'"
+        nzType='default'
+        nz-popconfirm
+        nzPopconfirmTitle='Are you sure you want to reset?'
+        nzPopconfirmPlacement='topLeft'
+        (nzOnConfirm)="props.onResetSearchPayload()"
+        (nzOnCancel)="props.onCancelAction()"
+>
+    <span *ngIf='displayTest'> Reset</span>
+    <span nz-icon nzType='clear'></span>
+</button>
+
+

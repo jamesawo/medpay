@@ -1,0 +1,26 @@
+<page-header [content]="content">
+    <ng-template #action>
+        <button nz-button nzType="text" class="primary">
+            Expand
+            <span nz-icon nzType="down" nzTheme="outline"></span>
+        </button>
+    </ng-template>
+
+    <ng-template #content nz-row>
+
+        <div class="ph-main" nz-col nzSpan="24">
+            <app-transaction-search></app-transaction-search>
+        </div>
+
+        <div class='ph-main m-t-2em m-t-sm-2em' nz-col nzSpan='24'>
+            <div nz-row nzJustify='space-between'>
+                <div nz-col [nzXs]="12" [nzLg]="8">
+                    <button nz-button [nzSize]="'large'" nzType='primary'>Search</button>
+                    <button nz-button [nzSize]="'large'" nzType='default'>Reset</button>
+                </div>
+
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+<nz-card></nz-card>

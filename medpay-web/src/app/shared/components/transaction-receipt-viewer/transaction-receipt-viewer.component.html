@@ -1,0 +1,37 @@
+<div class="pdf-viewer-box">
+
+
+    <div class="text-align-center">
+        <ng-container *ngIf="data; else emptyTemplateRef">
+            <div nz-col class="m-b-1em m-b-sm-1em">
+                <button nz-button class="m-r-3px"
+                        (click)="props?.printAction()"
+                        [disabled]="!isContentLoaded"
+                >
+                    Print
+                    <span nz-icon nzType="printer"></span>
+                </button>
+                <button nz-button class="m-l-3px"
+                        nzType="primary"
+                        (click)="props?.downloadAction()"
+                        [disabled]="!isContentLoaded"
+                >
+                    Download
+                    <span nz-icon nzType="download"></span>
+                </button>
+            </div>
+
+            <div class="iframe" *ngIf="dataUrl">
+                <!--<object [attr.data]="dataUrl" type="application/pdf" style="width: 100%; height: 400px;"></object>-->
+                <iframe [src]="dataUrl" style="min-height: 350px"></iframe>
+            </div>
+
+        </ng-container>
+    </div>
+
+
+    <ng-template #emptyTemplateRef>
+        <nz-empty></nz-empty>
+    </ng-template>
+
+</div>

@@ -1,0 +1,27 @@
+<nz-form-label nzFor='paymentCollectionMode'>
+    <span class='text-red-dark m-r-3px' *ngIf='props.required'>*</span>
+    Active Environment
+    <span
+        nz-tooltip
+        nzTooltipTitle='Is this hospital currently on LIVE or TEST environment'
+        class='m-l-5px'
+        nz-icon
+        nzType='info-circle'
+        nzTheme='outline'
+    ></span>
+</nz-form-label>
+<nz-form-control nzErrorTip='Please select an environment' [nzValidateStatus]="hasError?'error': 'success' ">
+    <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder='Select..'
+        name='activeEnv'
+        [(ngModel)]='selectedValue'
+        (ngModelChange)='onSelected($event)'
+    >
+        <nz-option *ngFor='let option of selectOptions'
+                   [nzLabel]='option.title' [nzValue]='option'
+        ></nz-option>
+
+    </nz-select>
+</nz-form-control>

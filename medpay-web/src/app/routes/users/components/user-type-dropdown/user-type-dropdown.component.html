@@ -1,0 +1,29 @@
+<nz-form-item>
+    <nz-form-label nzFor='userType'>
+        <span class='text-red-dark m-r-3px' *ngIf='props.required'>*</span>
+        User Type
+        <span
+            nz-tooltip
+            nzTooltipTitle='User type specifies the user category, a user can be an agent, regular user, administrator, etc. '
+            class='m-l-5px'
+            nz-icon
+            nzType='info-circle'
+            nzTheme='outline'
+        ></span>
+    </nz-form-label>
+    <nz-form-control nzErrorTip='User type type is required' [nzValidateStatus]="hasError?'error': 'success' ">
+        <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder='Select..'
+            name='userType'
+            [(ngModel)]='selectedValue'
+            (ngModelChange)='onSelected($event)'
+            nzStatus='error'
+        >
+            <nz-option *ngFor='let option of selectOptions'
+                       [nzLabel]='option.title'
+                       [nzValue]='option'></nz-option>
+        </nz-select>
+    </nz-form-control>
+</nz-form-item>

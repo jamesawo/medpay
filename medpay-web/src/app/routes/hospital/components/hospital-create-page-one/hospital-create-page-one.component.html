@@ -1,0 +1,126 @@
+<div class='m-t-1em' nz-col [nzSpan]='18' [nzXs]='24'>
+    <h3>Create Hospital</h3>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='hospitalName'>
+            Hospital Name
+            <span
+                nz-tooltip
+                nzTooltipTitle='Enter the Name of the hospital to create'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+        <nz-form-control>
+            <input
+                nz-input
+                name='hospitalName'
+                type='text'
+                placeholder='Enter hospital name'
+                id='hospitalName'
+                [(ngModel)]='payload.detail.name'
+
+            />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='supportName'>
+            Support Name
+            <span
+                nz-tooltip
+                nzTooltipTitle='The name of the support administrator.'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+        <nz-form-control>
+            <input
+                nz-input
+                name='supportName'
+                type='text'
+                placeholder='Enter support name'
+                id='supportName'
+                [(ngModel)]='payload.detail.supportName'
+            />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='supportEmail'>
+            Support Email
+            <span
+                nz-tooltip
+                nzTooltipTitle='The email address of the support administrator.'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+        <nz-form-control>
+            <input
+                nz-input
+                name='supportEmail'
+                type='email'
+                placeholder='Enter support email'
+                id='supportEmail'
+                [(ngModel)]='payload.detail.supportEmail'
+
+            />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='supportPhone'>
+            Support Phone
+            <span
+                nz-tooltip
+                nzTooltipTitle='The phone number of the support administrator.'
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+        <nz-form-control>
+            <input
+                nz-input
+                name='supportPhone'
+                type='text'
+                placeholder='Enter hospital phone'
+                id='supportPhone'
+                [(ngModel)]='payload.detail.supportPhone'
+
+            />
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class='m-t-2em'>
+        <nz-form-label nzFor='hospitalLocation'>
+            Hospital Location
+            <span
+                nz-tooltip
+                nzTooltipTitle='The full address of the hospital '
+                class='m-l-5px'
+                nz-icon
+                nzType='info-circle'
+                nzTheme='outline'
+            ></span>
+        </nz-form-label>
+        <nz-form-control nzErrorTip='Please provide hospital address!'>
+         <textarea
+                                    [(ngModel)]='payload.detail.hospitalAddress'
+                                    name='hospitalAddress'
+                                    nz-input
+                                    rows='2'
+                                    placeholder='Hospital address'
+                                ></textarea>
+        </nz-form-control>
+    </nz-form-item>
+
+</div>

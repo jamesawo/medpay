@@ -1,0 +1,24 @@
+<nz-form-label nzFor='preferredSupportChannel'>
+    Select the Preferred Support Channel.
+    <span
+        nz-tooltip
+        nzTooltipTitle='Select a support channel for the mobile app users'
+        class='m-l-5px'
+        nz-icon
+        nzType='info-circle'
+        nzTheme='outline'
+    ></span>
+</nz-form-label>
+<nz-form-control>
+    <nz-select
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder='Select..'
+        name='supportChannel'
+        [(ngModel)]='selectedValue'
+        (ngModelChange)='onSelected($event)'
+    >
+        <nz-option *ngFor='let option of selectOptions' [nzLabel]='option.title' [nzValue]='option'></nz-option>
+
+    </nz-select>
+</nz-form-control>

@@ -1,0 +1,45 @@
+<page-header [content]="content">
+    <ng-template #content>
+        <div nz-row nz-form [nzLayout]="'vertical'" >
+            <div class='ph-main m-b-1em' nz-col nzSpan='24' [nzXs]='24' [nzLg]='24'>
+
+                <div nz-row class="m-t-1em">
+                    <div class='p-r-10px m-t-sm-1em' nz-col [nzXs]='24' [nzLg]='12'>
+                        <app-hospital-search
+                            (selected)='onHospitalSelected($event)'
+                            #hospitalSearchComponent
+                        ></app-hospital-search>
+                    </div>
+
+                    <div class='p-r-10px m-t-sm-1em' nz-col [nzXs]='24' [nzLg]='12'>
+                       <app-user-search-dropdown (valueChange)="onUserSelected($event)" #userSearchDropdownComponent></app-user-search-dropdown>
+                    </div>
+
+                </div>
+
+                <div nz-row class="m-t-1em m-t-sm-1em">
+                    <div class='p-r-10px ' nz-col nzSpan='16' [nzXs]='24' [nzLg]='16'>
+                        <label>Date Range</label>
+                        <app-range-date-picker (selected)="onDateRangeSelected($event)"></app-range-date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class='ph-main m-t-2em m-t-sm-2em m-b-2em' nz-col nzSpan='24' [nzXs]='24' [nzLg]='24'>
+                <div nz-row nzJustify='space-between'>
+                    <div nz-col [nzSpan]='12' [nzXs]='10' [nzLg]='12'>
+                        <app-search-reset-button
+                            [props]='{
+                                    onSearchAction: onSearch,
+                                    isLoadingSearchResult: isLoading,
+                                    onResetSearchPayload: onResetSearchPayload,
+                                    onCancelAction: onCancelAction
+                                    }'
+                        ></app-search-reset-button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</page-header>
+<nz-card></nz-card>
