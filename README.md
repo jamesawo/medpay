@@ -25,6 +25,8 @@ Medpay is built using the following technologies:
 -   TypeScript 4.4
 -   Angular 13
 -   Ant Design 4.25
+-   Flutter 3.3.2
+-   Dart 2.18.1
 
 ## Installation
 
