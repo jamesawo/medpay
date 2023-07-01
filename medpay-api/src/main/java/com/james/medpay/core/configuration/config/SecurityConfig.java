@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] AUTH_WHITELIST = {
 			API_PREFIX + "/auth/login",
+			API_PREFIX + "/auth/register",
 	};
 
 	@Bean
