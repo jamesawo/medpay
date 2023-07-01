@@ -81,7 +81,7 @@ class _HomeSetLocationScreenState extends State<HomeSetLocationScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 TextMedium(
-                                  text: 'Select your Hospital Location',
+                                  text: 'Choose your Hospital',
                                   size: AppDimensions.fontSize18,
                                 ),
                                 GestureDetector(

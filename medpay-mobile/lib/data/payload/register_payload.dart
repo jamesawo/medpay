@@ -1,12 +1,12 @@
 class RegisterPayload {
   String name;
-  String phoneNumber;
+  String phone;
   String email;
   String password;
 
   RegisterPayload({
     required this.name,
-    required this.phoneNumber,
+    required this.phone,
     required this.email,
     required this.password,
   });
@@ -14,7 +14,7 @@ class RegisterPayload {
   factory RegisterPayload.unnamed(String name, String phone, String email, String password) {
     return RegisterPayload(
       name: name,
-      phoneNumber: phone,
+      phone: phone,
       email: email,
       password: password,
     );
@@ -23,7 +23,7 @@ class RegisterPayload {
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
-    data['phoneNumber'] = phoneNumber;
+    data['phone'] = phone;
     data['email'] = email;
     data['password'] = password;
     return data;
