@@ -1,8 +1,8 @@
 package com.james.medpay.features.authentication.presenter;
 
-import com.james.medpay.features.authentication.data.interactor.contract.IAuthLoginInteractor;
-import com.james.medpay.features.authentication.data.request.LoginRequest;
-import com.james.medpay.features.authentication.domain.entity.partial.AuthLogin;
+import com.james.medpay.features.authentication.data.interactor.contract.IAuthRegisterInteractor;
+import com.james.medpay.features.authentication.data.request.RegisterRequest;
+import com.james.medpay.features.users.data.request.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,17 +15,15 @@ import javax.validation.Valid;
 import static com.james.medpay.core.constant.Routes.API_PREFIX;
 
 @RestController
-@RequestMapping( value = API_PREFIX + "/auth" )
+@RequestMapping(value = API_PREFIX + "/auth")
 @RequiredArgsConstructor
 public class AuthRegisterEntryPoint {
 
-	private final IAuthLoginInteractor interactor;
+	private final IAuthRegisterInteractor interactor;
 
-	@PostMapping( value = "/register" )
-	ResponseEntity<AuthLogin> login(
-			@Valid @RequestBody LoginRequest request
-	) {
-		return this.interactor.login( request.getUsername(), request.getPassword() );
+	@PostMapping(value = "/register")
+	ResponseEntity<RegisterRequest> register(@Valid @RequestBody RegisterRequest request) {
+		return this.interactor.register(request);
 	}
 
 }

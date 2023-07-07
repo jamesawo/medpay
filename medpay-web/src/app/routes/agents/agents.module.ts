@@ -10,6 +10,7 @@ import { AgentsBillPaymentComponent } from './components/agents-bill-payment/age
 import { AgentReprintReceiptComponent } from './agent-reprint-receipt/agent-reprint-receipt.component';
 import { TransactionsModule } from '../transactions/transactions.module';
 import { AgentBillItemTableComponent } from './components/agent-bill-item-table/agent-bill-item-table.component';
+import {BillingModule} from "../billing/billing.module";
 
 
 const COMPONENTS: Array<Type<void>> = [
@@ -22,7 +23,7 @@ const COMPONENTS: Array<Type<void>> = [
 ];
 
 @NgModule({
-    imports: [SharedModule, AgentsRoutingModule, ServiceGroupModule, TransactionsModule],
+    imports: [SharedModule, AgentsRoutingModule, ServiceGroupModule, TransactionsModule, BillingModule],
     declarations: [
         COMPONENTS,
 

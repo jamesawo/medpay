@@ -1,0 +1,32 @@
+<nz-table
+        [nzShowPagination]="false"
+        nzSize="small"
+        nzTableLayout="auto"
+        [nzData]="data">
+    <thead>
+    <tr>
+        <th></th>
+        <th class="text-bold">SERVICE</th>
+        <th class="text-bold">AMOUNT</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of data; let i = index">
+        <td></td>
+        <td>{{data.service?.title}}</td>
+        <td>{{data.amount | currency: '₦'}}</td>
+        <td>
+            <ng-container *ngIf="props.allowModify">
+                <button nz-button nzType="text">
+                    <span nz-icon nzType="edit"></span>
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+                <button nz-button nzType="text" (click)="onRemoveBillItem(i)">
+                    <span style="color: orangered" nz-icon nzType="delete"></span>
+                </button>
+            </ng-container>
+        </td>
+    </tr>
+    </tbody>
+</nz-table>

@@ -43,23 +43,25 @@ class AuthController extends GetxController implements GetxService {
       _authStatus = AuthStatusEnum.authenticating;
       Response response = await authRepository.doRegister(registerPayload);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
+        var body = jsonDecode(jsonEncode(response.body));
         // transform payload
-        ResponsePayload payload = ResponsePayload.fromJson(jsonDecode(jsonEncode(response.body)));
+
+        //ResponsePayload payload = ResponsePayload.fromJson();
         // transform response to user model
-        UserModel userModel = UserModel.fromJson(payload.data);
+        UserModel userModel = UserModel.fromJson(body);
         // save user token for next request
-        authRepository.saveUserToLocalStorage(userModel, registerPayload.password);
-        loggedInUser = userModel;
+        //authRepository.saveUserToLocalStorage(userModel, registerPayload.password);
+        //loggedInUser = userModel;
         // show success notification && update ui
         HelperUtils.showSuccessSnackBar(
           message: MessageConstants.verifyEmail,
-          title: payload.message!,
+          title: "Successful",
           duration: 8,
         );
         _authStatus = AuthStatusEnum.registered;
         // pop screen
-        HelperUtils.popBeforeNavigateToWithArgs(AppRoutes.homeSetLocationScreen, true);
+        HelperUtils.popBeforeNavigateToWithArgs(AppRoutes.authLoginScreen, true);
         return response;
       }
       onShowError(response, AuthStatusEnum.notRegistered);

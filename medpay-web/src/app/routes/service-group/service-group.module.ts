@@ -37,6 +37,7 @@ const COMPONENTS: Array<Type<void>> = [
         ServiceGroupSearchComponent,
         RevenueHeadSearchComponent,
         ServiceSearchComponent,
+        ServicesCreateComponent,
     ],
 })
 export class ServiceGroupModule {}

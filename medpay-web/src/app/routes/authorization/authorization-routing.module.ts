@@ -21,7 +21,6 @@ const routes: Routes = [
             { path: 'permissions', component: AuthorizationPermissionComponent },
         ],
     },
-
 ];
 
 @NgModule({

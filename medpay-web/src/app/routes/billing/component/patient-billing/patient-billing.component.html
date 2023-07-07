@@ -1,0 +1,96 @@
+<page-header [title]="'Patient Billing'"></page-header>
+<nz-card>
+    <div nz-col [nzXs]='{ span: 24, offset: 0 }' [nzLg]='{ span: 24, offset: 0 }'>
+        <form nz-form [nzLayout]="'vertical'" autocomplete='off'>
+            <div nz-row nzGutter="8" class=''>
+
+                <div class='m-t-1em' nz-col [nzSpan]='12'>
+                    <app-hospital-search #hospitalSearchComponent (selected)="onHospitalSelected($event)"></app-hospital-search>
+                </div>
+
+                <div class='m-t-1em' nz-col [nzSpan]='12'>
+                    <app-patient-search #patientSearchComponent [hospital]="selectedHospitalId"
+                                        (selected)="onPatientSelected($event)"></app-patient-search>
+                </div>
+
+
+                <div class='m-t-1em' nz-col [nzSpan]='12'>
+                    <nz-form-control [nzValidateStatus]="!service ? 'error': 'success'">
+                        <app-service-search #serviceSearchComponent (valueChange)="onServiceChange($event)"  [props]="{hospitalId: selectedHospitalId}"></app-service-search>
+                    </nz-form-control>
+                </div>
+
+                <div class='m-t-1em' nz-col [nzSpan]='12'>
+                    <nz-form-item>
+                        <nz-form-label>Amount</nz-form-label>
+                        <nz-form-control nzErrorTip='' [nzValidateStatus]="isTouched && !amount? 'error': 'success'">
+                            <input
+                                    [(ngModel)]="amount"
+                                    nz-input
+                                    type='number'
+                                    placeholder='Enter Amount'
+                                    name="billItemAmount"
+                            />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div class='m-t-1em' nz-col [nzSpan]='24'>
+                    <div class="action-button" >
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button (click)="onAddItem()"
+                                        nz-button nzType='primary' nzSize='large'>
+                                    Add Bill
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item class="m-l-10px">
+                            <nz-form-control>
+                                <button (click)="onReset()"
+                                        nz-button nzType='default' nzSize='large'>
+                                    Clear
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</nz-card>
+<nz-card>
+    <ng-container *ngIf="bill.items.length ; else noItem ">
+       <app-bill-item-table
+               [props]="{allowModify: true}"
+               [data]="bill.items"
+       ></app-bill-item-table>
+
+        <div class="m-t-2em">
+            <button nz-button nzType="primary" (click)="onSaveBill()">Submit Bill</button>
+        </div>
+    </ng-container>
+
+    <ng-template #noItem>
+        <nz-empty></nz-empty>
+    </ng-template>
+
+
+</nz-card>
+
+
+<ng-template #template>
+    <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+          <span class="ant-notification-notice-icon">
+            <span nz-icon nzType="check-circle" style="color: forestgreen;"></span>
+          </span>
+            <div class="ant-notification-notice-message">Bill Saved Successfully</div>
+            <div class="ant-notification-notice-description">
+                Invoice Number: {{invoiceNumber}}
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -6,6 +6,9 @@ import com.james.medpay.core.exception.InvalidRequestException;
 import com.james.medpay.core.params.AmountRange;
 import com.james.medpay.core.params.DateRange;
 import com.james.medpay.core.params.PageParam;
+import com.james.medpay.features.billing.domain.enums.BillStatus;
+import com.james.medpay.features.billing.domain.usecase.IPatientBillItemUsecase;
+import com.james.medpay.features.billing.domain.usecase.IPatientBillUsecase;
 import com.james.medpay.features.hospital.domain.entity.HospitalEntity;
 import com.james.medpay.features.hospital.domain.repository.contract.IHospitalApiUsageRepository;
 import com.james.medpay.features.hospital.domain.repository.contract.IHospitalBasicDetailRepository;
@@ -55,6 +58,7 @@ public class TransactionEntityRepositoryImpl implements ITransactionEntityReposi
 	private final ITransactionPaymentDetailRepository paymentDetailRepository;
 	private final TransactionReceiptExporter transactionReceiptExporter;
 	private final IHospitalApiUsageRepository apiUsageRepository;
+	private final IPatientBillUsecase billUsecase;
 
 	private final List<String> message = new ArrayList<>();
 
@@ -105,7 +109,10 @@ public class TransactionEntityRepositoryImpl implements ITransactionEntityReposi
 			throw new InvalidRequestException( Arrays.toString( message.toArray() ) );
 		}
 		_updateTransactionPartialEntity( unSavedTransaction, hospital, SUCCESSFUL );
-		return this.dataRepository.save( unSavedTransaction );
+		TransactionEntity savedTransaction = this.dataRepository.save(unSavedTransaction);
+		// update bill status
+		this.billUsecase.updateBillStatus(savedTransaction.getPaymentDetail().getBillNumber(), BillStatus.PAID);
+		return savedTransaction;
 	}
 
 	private boolean _isValidBillTransactionRequest( TransactionEntity unSavedTransaction ) {

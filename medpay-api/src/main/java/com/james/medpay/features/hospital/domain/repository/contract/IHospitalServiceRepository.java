@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface IHospitalServiceRepository {
 
+	Optional<HospitalService> findOne(Long id);
+
 	Optional<HospitalService> createService( Long revHeadId, HospitalService service);
 
 	Optional<Boolean> updateService( HospitalService service);

@@ -33,6 +33,11 @@ public class HospitalServiceRepositoryImpl implements IHospitalServiceRepository
 	private Long hospitalId;
 
 	@Override
+	public Optional<HospitalService> findOne(Long id) {
+		return this.serviceDataRepository.findById(id);
+	}
+
+	@Override
 	public Optional<HospitalService> createService( Long revHeadId, HospitalService service ) {
 		Optional<HospitalRevenueHead> optional = this.revenueHeadRepository.getRevenueHeadById( revHeadId );
 		return optional.map( revenueHead -> checkDuplicateBeforeCreate( revenueHead, service ) );

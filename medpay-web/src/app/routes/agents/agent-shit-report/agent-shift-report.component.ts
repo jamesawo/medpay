@@ -90,8 +90,9 @@ export class AgentShiftReportComponent implements OnInit, OnDestroy {
     }
 
     private getUser(): UserPayload {
-        const loginRes = this.passportService.getLoginResponse();
-        return new UserPayload(loginRes?.id);
+        // const loginRes = this.passportService.getLoginResponse();
+        // return new UserPayload(loginRes?.id);
+        return this.passportService.getUser();
     }
 
     private getHospital(): HospitalPayload | undefined {

@@ -67,6 +67,21 @@ export const allMenu: Menu[] = [
         group: true,
         children: [
             {
+                text: 'Billing',
+                icon: { type: 'icon', value: 'credit-card' },
+                children: [
+                    { text: 'Register Patient', link: '/billing/register-patient' },
+                    { text: 'Bill Patient', link: '/billing/bill-patient' },
+                ],
+            },
+        ],
+    },
+
+    {
+        text: '',
+        group: true,
+        children: [
+            {
                 text: 'Transactions',
                 icon: { type: 'icon', value: 'dollar-circle' },
                 children: [

@@ -20,7 +20,7 @@
             <span nz-icon [nzType]="!isLoading ? 'search': 'loading'"></span>
         </ng-template>
         <nz-autocomplete #auto>
-            <nz-auto-option *ngFor='let data of options' [nzLabel]='data.detail.name' (click)='onSelected(data)' [nzValue]='data'>
+            <nz-auto-option *ngFor='let data of options' [nzLabel]='data.detail.name!' (click)='onSelected(data)' [nzValue]='data'>
                 {{data.detail.name}}
             </nz-auto-option>
         </nz-autocomplete>

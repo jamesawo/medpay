@@ -3,6 +3,7 @@ package com.james.medpay.features.users.data.interactor.implementation;
 import com.james.medpay.core.annotation.Interactor;
 import com.james.medpay.core.params.EmptyParam;
 import com.james.medpay.core.params.Param;
+import com.james.medpay.features.authentication.data.request.RegisterRequest;
 import com.james.medpay.features.users.data.interactor.contract.IUserEInteractor;
 import com.james.medpay.features.users.data.request.UserRequest;
 import com.james.medpay.features.users.data.request.UserSearchRequest;
@@ -36,6 +37,11 @@ public class UserEInteractor implements IUserEInteractor {
 	private final UserGetBySearchRequestUsecase searchRequestUsecase;
 	private final UserUpdateAddressAndLimitUsecase updateAddressAndLimitUsecase;
 	private final UserGetBySearchTermUsecase bySearchTermUsecase;
+
+
+	public IUserEntity register(UserRequest request){
+		return this.createUsecase.execute(toEntity(request) );
+	}
 
 	@Override
 	public ResponseEntity<UserRequest> createUser( UserRequest user ) {
