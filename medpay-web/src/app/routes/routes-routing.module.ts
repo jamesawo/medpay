@@ -57,6 +57,11 @@ const routes: Routes = [
                     ),
             },
             {
+                path: 'billing',
+                loadChildren: () =>
+                    import('./billing/billing.module').then((m) => m.BillingModule),
+            },
+            {
                 path: 'hospital',
                 loadChildren: () =>
                     import('./hospital/hospital.module').then((m) => m.HospitalModule),
