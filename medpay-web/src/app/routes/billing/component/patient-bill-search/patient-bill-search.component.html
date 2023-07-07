@@ -1,0 +1,31 @@
+<nz-form-item>
+    <nz-form-control nzErrorTip='Patient is required' [nzValidateStatus]="props?.hasError?'error': 'success' ">
+        <nz-form-label nzFor='' [nzNoColon]='true'>
+            <span>
+            <span class='text-red-dark m-r-3px' *ngIf='props?.required === true'>*</span>
+            Invoice Number Search
+            </span>
+        </nz-form-label>
+        <nz-input-group [nzSuffix]='suffixIconSearch' style='width: 100%'>
+            <input nzSize='large' type='text' nz-input placeholder='at least 4 characters is required'
+                   [(ngModel)]='selectedPayload'
+                   (input)='onInput($event)'
+                   [nzAutocomplete]='auto'
+                   [autofocus]='props?.autoFocus'
+            />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+            <span nz-icon [nzType]="!isLoading ? 'search': 'loading'"></span>
+        </ng-template>
+        <nz-autocomplete #auto>
+            <nz-auto-option
+                    (click)='onSelected(data)'
+                    *ngFor='let data of options'
+                    [nzLabel]="contactLabel(data)"
+                    [nzValue]='data'
+            >
+                {{contactLabel(data)}}
+            </nz-auto-option>
+        </nz-autocomplete>
+    </nz-form-control>
+</nz-form-item>

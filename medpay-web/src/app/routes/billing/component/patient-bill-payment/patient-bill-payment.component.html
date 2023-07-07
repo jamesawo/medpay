@@ -1,0 +1,80 @@
+<div class="ph-main m-t-1em" nz-col nzSpan="24">
+
+    <div nz-row>
+        <div class="m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="24">
+            <app-patient-bill-search (selected)="onBillSelected($event)"></app-patient-bill-search>
+        </div>
+
+        <ng-container *ngIf="!showSuccessTransaction; else successTransactionTmpl">
+            <ng-container *ngIf="bill && bill.id">
+
+                <nz-divider nzOrientation="left" nzText=""></nz-divider>
+
+                <div class="m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="24">
+                    <h3 class="m-b-1em"><strong>Patient & Invoice Details</strong></h3>
+                    <div>
+                        <nz-descriptions nzTitle="">
+                            <nz-descriptions-item nzTitle="Patient Full Name">
+                                <strong>{{contactFullName(bill.patient)}} </strong>
+                            </nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="Patient Computer Number">
+                                <strong>{{bill.patient?.uniqueCode}} </strong>
+                            </nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="Patient Phone Number">
+                                <strong>{{bill.patient?.phone}}</strong>
+                            </nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="Invoice Amount">
+                                <strong>{{bill.billAmount | currency: '₦'}}</strong>
+                            </nz-descriptions-item>
+                            <nz-descriptions-item nzTitle="Invoice Status">
+                                <strong [ngStyle]="{'color': bill.status === paid ? 'green': 'red'}">{{bill.status}}</strong>
+                            </nz-descriptions-item>
+                        </nz-descriptions>
+                    </div>
+                </div>
+
+                <nz-divider nzOrientation="left" nzText=""></nz-divider>
+
+                <div class="m-t-sm-1em" nz-col [nzXs]="24" [nzLg]="24" nz-row>
+                    <h3 class="m-b-1em"><strong>Invoice / Bill Items </strong></h3>
+
+                    <div nz-col [nzXs]="24" [nzLg]="24" class="table">
+                        <app-bill-item-table [data]="bill.items"></app-bill-item-table>
+                    </div>
+
+                </div>
+
+                <ng-container *ngIf="bill.status != paid">
+                    <div class="m-t-1em m-t-sm-2em m-b-2em" nz-col nzSpan="24" [nzXs]="24" [nzLg]="24">
+                        <div nz-row nzJustify="space-between">
+                            <div nz-col [nzSpan]="12" [nzXs]="10" [nzLg]="12">
+                                <button nz-button [nzSize]="'default'" nzType='primary' (click)="onProcessPayment()">
+                                    <span>Proceed</span>
+                                    <span nz-icon nzType='check'></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+
+            </ng-container>
+        </ng-container>
+
+
+        <ng-template #successTransactionTmpl>
+            <ng-container *ngIf="transaction">
+                <app-transaction-status-preview
+                        [props]="{
+                data: transaction,
+                canDownloadReceipt: true,
+                canShowDetails: false,
+                onResetAction: onResetSearchPayload,
+                onCancelAction: onCancelAction
+            }"
+                ></app-transaction-status-preview>
+            </ng-container>
+        </ng-template>
+
+    </div>
+</div>

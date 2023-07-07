@@ -1,0 +1,144 @@
+<page-header></page-header>
+<nz-card>
+
+    <div *ngIf="showAlertNotification">
+        <nz-alert
+                nzShowIcon
+                nzType="success"
+                nzMessage="Patient Registered Successfully"
+                [nzDescription]="descriptionTemplate2"
+                [nzAction]="actionTemplate"
+        ></nz-alert>
+
+        <ng-template #descriptionTemplate2>
+            <p><strong>Patient Number: {{registeredNumber}}</strong></p>
+        </ng-template>
+        <ng-template #actionTemplate>
+            <button nz-button nzSize="small" nzType="primary" nzGhost (click)="showAlertNotification = !showAlertNotification">Close</button>
+        </ng-template>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()" nz-form [nzLayout]="'vertical'" autocomplete='off'>
+        <div nz-row nzGutter="8">
+            <div nz-col [nzSpan]='12' [nzLg]="8" [nzXs]='24'>
+                <nz-form-item class='m-t-2em'>
+                    <nz-form-label nzFor='patientFirstName'>
+                        Patient First Name
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('firstName')">
+                        <input
+                                formControlName="firstName"
+                                nz-input
+                                name='patientFirstName'
+                                type='text'
+                                placeholder='Enter first name'
+                                id='patientFirstName'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='12' [nzLg]="8" [nzXs]='24'>
+                <nz-form-item class='m-t-2em'>
+                    <nz-form-label nzFor='patientLastName'>
+                        Patient Last Name
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('lastName')">
+                        <input
+                                formControlName="lastName"
+                                nz-input
+                                name='patientLastName'
+                                type='text'
+                                placeholder='Enter last name'
+                                id='patientLastName'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='12' [nzLg]="8" [nzXs]='24'>
+                <nz-form-item class='m-t-2em'>
+                    <nz-form-label nzFor='patientOtherName'>
+                        Patient Other Name
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('otherName')">
+                        <input
+                                formControlName="otherName"
+                                nz-input
+                                name='patientOtherName'
+                                type='text'
+                                placeholder='Enter other name'
+                                id='patientOtherName'
+                        />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div nz-row nzGutter="8">
+            <div nz-col [nzSpan]='12' [nzLg]="8" [nzXs]='24'>
+                <nz-form-item class='m-t-2em '>
+                    <nz-form-label nzFor='patientDateOfBirth'>
+                        Date of Birth
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('dateOfBirth')">
+                        <nz-date-picker
+                                formControlName="dateOfBirth" style="width: 100%"
+                                [nzPlaceHolder]="'Select date of birth'"
+                        ></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+
+            <div nz-col [nzSpan]='12' [nzLg]="8" [nzXs]='24'>
+                <nz-form-item class='m-t-2em'>
+                    <nz-form-label nzFor='patientGender'>
+                        Gender
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('gender')">
+                        <nz-select
+                                formControlName="gender" [nzPlaceHolder]="'Select Gender'">
+                            <nz-option nzLabel="MALE" [nzValue]="'MALE'"></nz-option>
+                            <nz-option nzLabel="FEMALE" [nzValue]="'FEMALE'"></nz-option>
+                            <nz-option nzLabel="OTHER" [nzValue]="'OTHER'"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='12' [nzLg]="8" [nzXs]='24'>
+                <nz-form-item class='m-t-2em '>
+                    <nz-form-label nzFor='patientPhoneNumber'>
+                        Phone Number
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('phone')">
+                        <input nz-input
+                               id="patientPhoneNumber"
+                               type='text'
+                               placeholder='Enter phone number'
+                               formControlName="phone"
+                               name="patientPhoneNumber"
+                        >
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]='12' [nzLg]="16" [nzXs]='24'>
+                <nz-form-item class='m-t-2em'>
+                    <nz-form-label nzFor='patientAddress'>
+                        Address
+                    </nz-form-label>
+                    <nz-form-control [nzValidateStatus]="status('address')">
+                        <textarea formControlName="address" nz-input></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+        </div>
+
+        <div nz-row>
+            <button type="submit" nz-button nzType="primary">Register Patient</button>
+        </div>
+    </form>
+</nz-card>
