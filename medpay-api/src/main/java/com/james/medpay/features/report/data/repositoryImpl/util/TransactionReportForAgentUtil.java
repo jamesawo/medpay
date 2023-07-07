@@ -120,7 +120,7 @@ public class TransactionReportForAgentUtil implements DataExporter<byte[], BiPar
 		payload.setTime( formatTime( transaction.getTime() ) );
 		payload.setDate( formatDate( transaction.getDate() ) );
 		payload.setAgentFullName( transaction.getAgentFullName() );
-		payload.setPayerFullName( transaction.getPayerFullName().toLowerCase() );
+		payload.setPayerFullName( transaction.getPayerFullName().toUpperCase() );
 		return payload;
 	}
 
