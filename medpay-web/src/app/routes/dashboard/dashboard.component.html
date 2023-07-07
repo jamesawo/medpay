@@ -1,5 +1,5 @@
-<page-header></page-header>
+<page-header [title]="'Welcome'"></page-header>
 <ngx-spinner [fullScreen]="true" size="medium" type="timer"></ngx-spinner>
 <nz-card>
-    <nz-empty></nz-empty>
+    <nz-empty [nzNotFoundContent]="''" [title]="'Welcome to MedPay'"></nz-empty>
 </nz-card>
