@@ -39,4 +39,9 @@ public class DatabaseTables {
 	public static final String USER_ROLE_TABLE = TABLE_PREFIX + "user_role" + TABLE_SUFFIX;
 
 
+	// Billing Module
+	public static final String BILL_TABLE = TABLE_PREFIX + "bill_detail" + TABLE_SUFFIX;
+	public static final String BILL_ITEM_TABLE = TABLE_PREFIX + "bill_item" + TABLE_SUFFIX;
+	public static final String BILL_PATIENT = TABLE_PREFIX + "bill_patient_detail" + TABLE_SUFFIX;
+
 }
