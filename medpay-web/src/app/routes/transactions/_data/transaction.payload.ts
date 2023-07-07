@@ -3,12 +3,14 @@ import { HospitalPayload } from '../../hospital/data/hospital.payload';
 import { UserPayload } from '../../users/_data/user.payload';
 import { HospitalService } from '../../hospital/hospital.service';
 import { IDateRange } from '../../../shared/types/shared.interface';
+import {ServicePayload} from "../../service-group/_data/service-group.payload";
 
 export class TransactionPaymentDetailPayload {
     id?: number;
     billNumber?: string;
     category?: HospitalServiceCategoryEnum;
-    services?: HospitalService[];
+    // services?: HospitalService[];
+    services?: ServicePayload[];
 }
 
 export class TransactionPayerDetailPayload {
