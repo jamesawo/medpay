@@ -23,7 +23,7 @@ export class HospitalSearchComponent implements OnInit, OnDestroy {
     private loading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private subscription: Subscription = new Subscription();
 
-    @Output('selected') // use this to get the selected hospital when the user click on one of the result in the drop down
+    @Output('selected') // use this to get the selected hospital when the user click on one of the result in the drop-down
     public selected: EventEmitter<HospitalPayload> = new EventEmitter<HospitalPayload>();
 
     @Output('value') // use this to get the search text as the user is typing
