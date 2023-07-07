@@ -87,7 +87,6 @@ export class AgentsBillPaymentComponent implements OnInit, OnDestroy {
         this.billDetails = undefined;
         this.canDisplayBillDetails = false;
         this.receiptDetails = undefined;
-
         this.msg.success('Reset, Done!');
     };
 
@@ -108,7 +107,6 @@ export class AgentsBillPaymentComponent implements OnInit, OnDestroy {
                     next: (res) => {
                         this.spinner.hide().then();
                         if (res && res.id) {
-                            console.log(res);
                             this.receiptDetails = res;
                         }
                     },
