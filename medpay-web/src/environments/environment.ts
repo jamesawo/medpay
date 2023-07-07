@@ -8,7 +8,7 @@ export const environment = {
     production: false,
     useHash: true,
     api: {
-        baseUrl: '/api/v1',
+        baseUrl: 'http://localhost:9090/api/v1',
         refreshTokenEnabled: true,
         refreshTokenType: 'auth-refresh',
     },
