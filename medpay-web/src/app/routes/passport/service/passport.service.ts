@@ -4,6 +4,7 @@ import { environment } from '@env/environment';
 import { LoginResponse } from '../data/user.payload';
 import { UserTypeEnum } from '../../users/_data/user.enum';
 import { agentMenu, allMenu } from '../../../core/startup/menu';
+import {UserPayload} from "../../users/_data/user.payload";
 
 export enum LocalStorageKey {
     USER= 'pu_user'
@@ -70,5 +71,10 @@ export class PassportService {
             name: `Paymed v1`,
             description: `Cash Collection Service`,
         };
+    }
+
+    public getUser(){
+        const loginRes = this.getLoginResponse();
+        return new UserPayload(loginRes?.id);
     }
 }
