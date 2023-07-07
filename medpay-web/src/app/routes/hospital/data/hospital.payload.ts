@@ -5,7 +5,7 @@ import {
     HospitalSettlementChargeEnum,
     HospitalSupportChannelEnum,
 } from './hospital.enum';
-import { IDateRange } from '../../../shared/types/shared.interface';
+import {IDateRange} from '../../../shared/types/shared.interface';
 
 
 export class HospitalBasicDetailPayload {
@@ -128,7 +128,8 @@ export class HospitalPayload {
     checked: boolean = false;
     disabled: boolean = false;
 
-    constructor() {
+    constructor(id?: number) {
+        this.id = id;
         this.detail = new HospitalBasicDetailPayload();
         this.serviceGroup = new HospitalServiceGroupPayload();
         this.apiConfiguration = new HospitalApiConfigurationPayload();
@@ -169,6 +170,7 @@ export class HospitalPayload {
 
         return result;
     }
+
 }
 
 export class HospitalSearchPayload {
