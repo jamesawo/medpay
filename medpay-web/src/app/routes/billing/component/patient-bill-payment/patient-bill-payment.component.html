@@ -48,7 +48,14 @@
                     <div class="m-t-1em m-t-sm-2em m-b-2em" nz-col nzSpan="24" [nzXs]="24" [nzLg]="24">
                         <div nz-row nzJustify="space-between">
                             <div nz-col [nzSpan]="12" [nzXs]="10" [nzLg]="12">
-                                <button nz-button [nzSize]="'default'" nzType='primary' (click)="onProcessPayment()">
+                                <button
+                                        nz-popconfirm
+                                        nzPopconfirmTitle="Are you sure, this action cannot be undone"
+                                        nzOkText="Yes, I am sure"
+                                        nzCancelText="No, Cancel"
+                                        (nzOnConfirm)="onProcessPayment()"
+                                        (nzOnCancel)="emptyAction()"
+                                        nz-button [nzSize]="'default'" nzType='primary'>
                                     <span>Proceed</span>
                                     <span nz-icon nzType='check'></span>
                                 </button>
