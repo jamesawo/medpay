@@ -1,6 +1,7 @@
 import { Environment } from '@delon/theme';
 
 export const environment = {
+    remittaKey: '',
     production: true,
     useHash: true,
     api: {
