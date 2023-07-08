@@ -7,5 +7,7 @@
 
 package com.james.medpay.features.gateway.contract;
 
+import lombok.Data;
+
 public class GatewayResponse {
 }
