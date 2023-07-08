@@ -27,6 +27,7 @@ import { STWidgetModule } from './shared/st-widget/st-widget.module';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
+import {ScriptLoaderModule} from "ngx-script-loader";
 
 const LANG = {
     abbr: 'en',
@@ -57,7 +58,10 @@ const INTERCEPTOR_PROVIDES = [
 // #endregion
 
 // #region global third module
-const GLOBAL_THIRD_MODULES: Array<Type<void>> = [NgxSpinnerModule];
+const GLOBAL_THIRD_MODULES: Array<Type<void>> = [
+    NgxSpinnerModule,
+    ScriptLoaderModule
+];
 
 // #endregion
 

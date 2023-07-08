@@ -64,6 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			API_PREFIX + "/auth/register",
 	};
 
+	private static final String[] H2_CONSOLE = {
+			"/h2-console/**"
+	};
+
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
 		return new JwtAuthenticationFilter(getUserDetails());
@@ -101,6 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(SWAGGER_WHITELIST).permitAll();
 		http.authorizeRequests().antMatchers(UI_WHITELIST).permitAll();
 		http.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll();
+		http.authorizeRequests().antMatchers(H2_CONSOLE).permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"swagger-ui.html").permitAll();
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

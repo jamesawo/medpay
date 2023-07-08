@@ -14,6 +14,8 @@ import {TransactionsService} from "../../../transactions/transactions.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {RemittaGatewayService} from "../../../gateway/remitta-gateway.service";
+import {HttpResponse} from "@angular/common/http";
+import {firstValueFrom} from "rxjs";
 
 @Component({
     selector: 'app-patient-bill-payment',
@@ -40,6 +42,7 @@ export class PatientBillPaymentComponent implements OnInit {
 
     public onBillSelected(bill: BillPayload) {
         if (bill) {
+            this.showSuccessTransaction = false;
             this.bill = bill;
         }
     }
@@ -48,8 +51,9 @@ export class PatientBillPaymentComponent implements OnInit {
         return `${patient?.firstName} ${patient?.lastName} ${patient?.otherName}`;
     }
 
-    public onProcessPayment() {
+    public emptyAction(){}
 
+    public onProcessPayment() {
         const hospital = this.bill.hospital;
         const collectionMode = this.getCollectionMode(hospital);
         this.processPaymentByCollectionMode(this.bill, collectionMode);
@@ -101,17 +105,31 @@ export class PatientBillPaymentComponent implements OnInit {
 
 
     private onGatewayHandleTransaction(transaction: TransactionPayload) {
-        console.log('call payment gateway');
         this.gatewayService.generateRRR(transaction).subscribe({
             next: (res) => {
-                console.log(res);
+                this.spinner.hide().then();
+                this.onAfterGenerateRRR(res, transaction);
             },
-
             error: (err) => {
-                console.log(err)
+                this.msg.error(err.error.message,);
+                this.spinner.hide().then();
             }
         })
+    }
 
+    private onAfterGenerateRRR(res: HttpResponse<Object>, transaction: TransactionPayload){
+        if (res.ok && res.body){
+            const body: any = res.body;
+            if(body.hasOwnProperty("RRR")){
+                this.gatewayService.handleRemittaPayment(body.RRR, {
+                    onSuccess: this.onPaymentSuccess,
+                    onError: this.onPaymentError,
+                    onClose: this.onPaymentModalClose
+                }, transaction);
+            } else {
+                this.msg.error(body.statusMessage ?? body.status);
+            }
+        }
     }
 
     private makePayment(transaction: TransactionPayload, mode: HospitalCollectionEnum) {
@@ -121,10 +139,10 @@ export class PatientBillPaymentComponent implements OnInit {
         } else {
             this.onGatewayHandleTransaction(transaction);
         }
-
     }
 
     private createTransaction(transaction: TransactionPayload) {
+        this.spinner.show().then();
         this.transactionService.createTransaction(transaction).subscribe({
             next: (response) => {
                 if (response && response.id) {
@@ -134,11 +152,28 @@ export class PatientBillPaymentComponent implements OnInit {
                 }
             },
             error: (err) => {
-                console.log(err);
                 this.spinner.hide().then();
                 this.msg.error('An error occurred');
             },
         })
     }
+
+    private onPaymentSuccess = (res: any) => {
+        this.spinner.hide().then();
+        this.createTransaction(res.transaction);
+    }
+
+    private onPaymentError = (res: any) => {
+        this.spinner.hide().then();
+        this.msg.info('Payment was not not successful, try again later!');
+
+
+    }
+
+    private onPaymentModalClose = () => {
+        this.spinner.hide().then();
+        this.msg.info('Payment modal was closed by you');
+    }
+
 
 }

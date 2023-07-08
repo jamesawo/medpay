@@ -89,7 +89,10 @@
           </span>
             <div class="ant-notification-notice-message">Bill Saved Successfully</div>
             <div class="ant-notification-notice-description">
-                Invoice Number: {{invoiceNumber}}
+                Invoice Number: <strong>{{invoiceNumber}}</strong>
+                <button class="m-l-5px" nz-button nzType="text" (click)="onCopyInvoiceNumber(invoiceNumber)">
+                    <span style="color: #1890ff" nz-icon nzType="copy" nzTheme="outline"></span>
+                </button>
             </div>
         </div>
     </div>

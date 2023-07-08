@@ -1,4 +1,5 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Clipboard} from '@angular/cdk/clipboard';
 import {HospitalPayload} from "../../../hospital/data/hospital.payload";
 import {PatientPayload} from "../../_data/patient.payload";
 import {BillItemPayload, BillPayload, BillStatus} from "../../_data/bill.payload";
@@ -51,7 +52,8 @@ export class PatientBillingComponent implements OnInit {
         private spinner: NgxSpinnerService,
         private billService: BillingService,
         private passport: PassportService,
-        private nzNotification: NzNotificationService
+        private nzNotification: NzNotificationService,
+        private clipboard: Clipboard
     ) {
     }
 
@@ -61,7 +63,7 @@ export class PatientBillingComponent implements OnInit {
 
     public onSaveBill() {
 
-        if (!this.bill.items.length){
+        if (!this.bill.items.length) {
             this.msg.warning('Add at least one bill item');
             return;
         }
@@ -87,11 +89,11 @@ export class PatientBillingComponent implements OnInit {
 
     }
 
-    private showNotification(){
+    private showNotification() {
         if (this.template) {
             this.nzNotification.template(
                 this.template!,
-                { nzPlacement: 'top' }
+                {nzPlacement: 'top'}
             );
         }
     }
@@ -158,4 +160,11 @@ export class PatientBillingComponent implements OnInit {
         }
     }
 
+    public onCopyInvoiceNumber(invoiceNumber?: string) {
+        if (invoiceNumber) {
+            this.clipboard.copy(invoiceNumber);
+            this.nzNotification.remove();
+            this.msg.success(`${invoiceNumber} copied!`)
+        }
+    }
 }

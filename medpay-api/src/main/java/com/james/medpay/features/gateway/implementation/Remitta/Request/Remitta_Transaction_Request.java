@@ -24,12 +24,12 @@ public class Remitta_Transaction_Request extends GatewayRequest{
 	}
 
 
-	public Remitta_Payment_Info toRemittaPaymentInfo() {
+	public Remitta_Payment_Info toRemittaPaymentInfo(String orderId) {
 		TransactionPayerDetailRequest payerDetail = transactionRequest.getPayerDetail();
 
 		Remitta_Payment_Info remitta_payment_info_ = new Remitta_Payment_Info();
 		remitta_payment_info_.setAmount(transactionRequest.getAmount().doubleValue());
-		remitta_payment_info_.setOrderId(Remitta_Demo_RRR.orderId);
+		remitta_payment_info_.setOrderId(orderId);
 		remitta_payment_info_.setPayerName(payerDetail.getFullName());
 		remitta_payment_info_.setPayerEmail("test@example.com");
 		remitta_payment_info_.setPayerPhone(payerDetail.getPhoneNumber());

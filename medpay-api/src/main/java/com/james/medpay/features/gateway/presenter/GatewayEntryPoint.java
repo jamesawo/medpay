@@ -7,7 +7,6 @@
 
 package com.james.medpay.features.gateway.presenter;
 
-import com.james.medpay.features.gateway.contract.GatewayResponse;
 import com.james.medpay.features.gateway.contract.IGateway;
 import com.james.medpay.features.gateway.implementation.Remitta.RemittaGateway;
 import com.james.medpay.features.gateway.implementation.Remitta.Request.Remitta_Transaction_Request;
@@ -17,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 import static com.james.medpay.core.constant.Routes.API_PREFIX;
 
@@ -30,9 +31,8 @@ public class GatewayEntryPoint {
 	}
 
 	@PostMapping("generate-rrr")
-	public ResponseEntity<GatewayResponse> generateRRR(@RequestBody TransactionRequest transactionRequest){
+	public ResponseEntity<Map<String, String>> generateRRR(@RequestBody TransactionRequest transactionRequest){
 		Remitta_Transaction_Request request = new Remitta_Transaction_Request(transactionRequest);
-		GatewayResponse gatewayResponse = this.gateway.generatePaymentReference(request);
-		return ResponseEntity.ok().body(gatewayResponse);
+		return this.gateway.generatePaymentReference(request);
 	}
 }

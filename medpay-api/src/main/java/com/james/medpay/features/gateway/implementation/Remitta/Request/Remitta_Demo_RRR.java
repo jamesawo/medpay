@@ -7,6 +7,7 @@
 
 package com.james.medpay.features.gateway.implementation.Remitta.Request;
 
+
 public class Remitta_Demo_RRR {
 	public static final String orderId = String.valueOf(Math.floor(Math.random() * 1000080));
 	public static final String serviceTypeId = "4430731";

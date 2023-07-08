@@ -5,6 +5,8 @@ import { Environment } from '@delon/theme';
 import * as MOCKDATA from '../../_mock';
 
 export const environment = {
+    // development config
+    remittaKey: '',
     production: false,
     useHash: true,
     api: {
