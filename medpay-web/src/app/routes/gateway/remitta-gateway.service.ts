@@ -2,6 +2,13 @@ import {Injectable} from '@angular/core';
 import {environment} from "@env/environment";
 import {HttpClient} from "@angular/common/http";
 import {TransactionPayload} from "../transactions/_data/transaction.payload";
+import {ScriptService} from "ngx-script-loader";
+
+export type RemittaCallBack = {
+    onSuccess: (arg: any) => void,
+    onError: (arg: any) => void,
+    onClose: () => void,
+}
 
 declare var RmPaymentEngine: any;
 
@@ -11,19 +18,23 @@ declare var RmPaymentEngine: any;
 export class RemittaGatewayService {
 
     private url: string = environment.api.baseUrl + '/gateway';
+    private remittaKey = environment['remittaKey'];
+    private REMITTA_DEMO = 'https://remitademo.net/payment/v1/remita-pay-inline.bundle.js';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private scriptService: ScriptService) {
+        this.scriptService.loadScript(this.REMITTA_DEMO).subscribe(() => {
+        });
     }
 
     public generateRRR(transaction: TransactionPayload) {
-        return this.http.post<any>(`${this.url}/generate-rrr`, transaction);
+        return this.http.post<any>(`${this.url}/generate-rrr`, transaction, {observe: "response"});
     }
 
-    public makePayment(rrr: string) {
+    public handleRemittaPayment(rrr: string, callBack?: RemittaCallBack, transaction?: TransactionPayload) {
         let paymentEngine: any = RmPaymentEngine.init({
-            key: 'U09MRHw0MDgxOTUzOHw2ZDU4NGRhMmJhNzVlOTRiYmYyZjBlMmM1YzUyNzYwZTM0YzRjNGI4ZTgyNzJjY2NjYTBkMDM0ZDUyYjZhZWI2ODJlZTZjMjU0MDNiODBlMzI4YWNmZGY2OWQ2YjhiYzM2N2RhMmI1YWEwYTlmMTFiYWI2OWQxNTc5N2YyZDk4NA==',
+            key: this.remittaKey,
             processRrr: true,
-            transactionId: Math.floor(Math.random() * 1101233), // Replace with a reference you generated or remove the entire field for us to auto-generate a reference for you. Note that you will be able to check the status of this transaction using this transaction Id
+            transactionId: Math.floor(Math.random() * 1101233), //replace in production
             extendedData: {
                 customFields: [
                     {
@@ -32,16 +43,20 @@ export class RemittaGatewayService {
                     }
                 ]
             },
-            onSuccess: function(response: any) {
-                console.log('callback Successful Response', response);
+
+            onSuccess: function (response: any) {
+                callBack?.onSuccess({response, transaction})
             },
-            onError: function(response: any) {
-                console.log('callback Error Response', response);
+
+            onError: function (response: any) {
+                callBack?.onError(response);
             },
-            onClose: function() {
-                console.log('closed');
+
+            onClose: function () {
+                callBack?.onClose()
             }
         });
+
         paymentEngine.showPaymentWidget();
     }
 }
