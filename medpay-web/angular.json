@@ -69,7 +69,8 @@
                             "node_modules/ngx-spinner/animations/timer.css",
                             "node_modules/ngx-toastr/toastr.css"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                        ],
                         "allowedCommonJsDependencies": [
                             "ajv",
                             "ajv-formats",
