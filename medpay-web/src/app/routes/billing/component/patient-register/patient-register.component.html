@@ -11,10 +11,17 @@
         ></nz-alert>
 
         <ng-template #descriptionTemplate2>
-            <p><strong>Patient Number: {{registeredNumber}}</strong></p>
+            <p>
+                <strong>Patient Number: {{registeredNumber}}</strong>
+                <button (click)="copyPatientNumber(registeredNumber!)" nz-button nzType="text" class="m-l-5px">
+                    <span style="color: #1890ff" nz-icon nzType="copy" nzTheme="outline"></span>
+                </button>
+            </p>
         </ng-template>
         <ng-template #actionTemplate>
-            <button nz-button nzSize="small" nzType="primary" nzGhost (click)="showAlertNotification = !showAlertNotification">Close</button>
+            <button nz-button nzSize="small" nzType="primary" nzGhost
+                    (click)="showAlertNotification = !showAlertNotification">Close
+            </button>
         </ng-template>
     </div>
 
