@@ -172,6 +172,9 @@ public class TransactionEntityRepositoryImpl implements ITransactionEntityReposi
 
 	private boolean _isPaymentDetailValid( TransactionEntity unSavedTransaction ) {
 		TransactionPaymentDetail paymentDetail = unSavedTransaction.getPaymentDetail();
+		//todo: refactor,
+		// since payment details will supply invoice number there is no need to check
+		// _hasAtLeastOneServiceItemInPaymentDetail, we can check services from invoice number
 		boolean result = isNotEmpty( paymentDetail ) && _hasAtLeastOneServiceItemInPaymentDetail( paymentDetail );
 		_addToValidationMessageIfCheckFailed( result, TRANSACTION_FAILED + PAYMENT_NOT_VALID );
 		return result;
