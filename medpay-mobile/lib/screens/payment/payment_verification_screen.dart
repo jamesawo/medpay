@@ -33,6 +33,7 @@ class _PaymentVerificationScreenState extends State<PaymentVerificationScreen> {
     showConfirmation = false;
     transaction = TransactionModel();
     controller = TextEditingController();
+    status = SuccessOrErrorEnum.success;
   }
 
   @override

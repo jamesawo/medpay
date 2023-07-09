@@ -20,6 +20,7 @@ import 'package:medpay/screens/payment/payment_add_service_items_screen.dart';
 import 'package:medpay/screens/payment/payment_bill_detail_screen.dart';
 import 'package:medpay/screens/payment/payment_bill_search_screen.dart';
 import 'package:medpay/screens/payment/payment_credit_card_screen.dart';
+import 'package:medpay/screens/payment/payment_invoice_search_screen.dart';
 import 'package:medpay/screens/payment/payment_payer_detail_screen.dart';
 import 'package:medpay/screens/payment/payment_status_screen.dart';
 import 'package:medpay/screens/payment/payment_verification_screen.dart';
@@ -56,6 +57,7 @@ class AppRoutes {
   // payment
   static const String paymentBillDetailScreen = 'payment-bill-detail';
   static const String paymentBillSearchScreen = 'payment-bill-search-screen';
+  static const String paymentInvoiceSearchScreen = 'payment-invoice-search-screen';
   static const String paymentAddServiceItemsScreen = 'payment-add-service-items-screen';
   static const String paymentCardScreen = 'payment-card-screen';
   static const String paymentStatusScreen = 'payment-confirm-screen';
@@ -137,6 +139,9 @@ class AppRoutes {
       case paymentBillSearchScreen:
         var search = settings.arguments as String?;
         return MaterialPageRoute(builder: (context) => PaymentBillSearchScreen(searchTerm: search));
+      case paymentInvoiceSearchScreen:
+        var search = settings.arguments as String?;
+        return MaterialPageRoute(builder: (context) => PaymentInvoiceSearchScreen(searchTerm: search));
       case paymentAddServiceItemsScreen:
         var search = settings.arguments as HospitalService?;
         return MaterialPageRoute(builder: (context) => PaymentAddServiceItemsScreen(service: search));

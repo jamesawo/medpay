@@ -22,4 +22,5 @@ class MessageConstants {
   static const String paymentSuccess = 'Payment Successful!';
   static const String paymentFailed = 'Payment Failed!';
   static const String paymentCancelled = 'Payment Cancelled!';
+  static const String paymentError = 'There was a problem with your last transaction!';
 }

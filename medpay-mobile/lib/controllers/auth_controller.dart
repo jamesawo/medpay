@@ -149,21 +149,5 @@ class AuthController extends GetxController implements GetxService {
 
   void reAuthenticateUser() async {
     doLogout();
-    /*AppSharedPreference sharedPreference = Get.find<AppSharedPreference>();
-    String? username = sharedPreference.getValue(AppConstants.keyUsername);
-    String? password = sharedPreference.getValue(AppConstants.keyPassword);
-    if (username != null && password != null) {
-      LoginPayload loginPayload = LoginPayload(username, password);
-      Response response = await authRepository.doLogin(loginPayload);
-      if (response.statusCode == 200) {
-        UserModel user = UserModel.fromJson(jsonDecode(jsonEncode(response.body['data'])));
-        authRepository.saveUserToLocalStorage(user, loginPayload.password);
-        loggedInUser = user;
-      } else {
-        doLogout();
-      }
-    } else {
-      doLogout();
-    }*/
   }
 }

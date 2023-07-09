@@ -42,13 +42,35 @@ class _BillOrServiceSearchInputState extends State<BillOrServiceSearchInput> {
     );
   }
 
-  SearchAutoCompleteInputWithButton getServiceAutoSearchInput() {
+
+  SearchInputWithButton getServiceAutoSearchInput() {
+    return SearchInputWithButton(
+        textController: _textController,
+        searchText: _textController.text,
+        hintText: 'Enter your invoice number',
+        action: () {
+          String searchTerm = _textController.text;
+          if (searchTerm.isNotEmpty) {
+            HelperUtils.navigateToWithArgs(
+              AppRoutes.paymentInvoiceSearchScreen,
+              searchTerm,
+            );
+          } else {
+            HelperUtils.showErrorSnackBar(
+              title: ExceptionConstants.errorFriendlyTitle,
+              message: ExceptionConstants.errorEmptyBillSearch,
+            );
+          }
+        });
+  }
+
+/*SearchAutoCompleteInputWithButton getServiceAutoSearchInput() {
     return SearchAutoCompleteInputWithButton(
       isItemsScreen: false,
       textController: _textController,
       hintText: 'Search for service ...',
     );
-  }
+  }*/
 
   SearchInputWithButton getBillSearch() {
     return SearchInputWithButton(

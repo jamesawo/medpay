@@ -10,6 +10,7 @@ import 'package:medpay/utils/helper_utils.dart';
 
 import '../repositories/hospital_repository.dart';
 
+
 class HospitalController extends GetxController {
   final HospitalRepository hospitalRepository;
   HospitalController({required this.hospitalRepository});
@@ -118,5 +119,19 @@ class HospitalController extends GetxController {
       selectedHospital = hospital;
     }
     return hospital;
+  }
+
+  Future<HospitalModel> getCurrentHospital() async {
+    var hospitalModel = getSavedHospitalFromLocalStorage();
+    if (hospitalModel != null && hospitalModel.id != null){
+      var response = await  hospitalRepository.getCurrentHospitalDetail(hospitalModel.id.toString());
+      if(response.isOk && response.body != null){
+        var decode = jsonDecode(jsonEncode(response.body));
+        return HospitalModel.fromJson(decode);
+      }
+    }
+
+    // todo:: ask user to select hospital
+    return HospitalModel();
   }
 }

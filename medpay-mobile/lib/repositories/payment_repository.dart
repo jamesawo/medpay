@@ -15,6 +15,13 @@ class PaymentRepository extends GetxService {
     );
   }
 
+  Future<Response> doSearchInvoiceNumberDetails(String invoiceNumber, String hospital) async {
+    return await apiClient.get(
+      RouteConstants.uriSearchInvoiceNumber + '?term=$invoiceNumber&hospitalId=$hospital',
+      headers: apiClient.mainHeaders,
+    );
+  }
+
   Future<Response> doTransactionPayment(TransactionModel transaction) async {
     var payload = transaction.toJson();
     return await apiClient.post(
@@ -24,7 +31,18 @@ class PaymentRepository extends GetxService {
     );
   }
 
-  /* Future<Response> doGenerateRRR(String user, String amount) async {
+  Future<Response> doGenerateRrr(TransactionModel transaction) async {
+    var payload = transaction.toJson();
+    return await apiClient.post(
+      RouteConstants.uriGenerateRRR,
+      payload,
+      headers: apiClient.mainHeaders,
+    );
+  }
+
+
+
+/* Future<Response> doGenerateRRR(String user, String amount) async {
     return await apiClient.post(
       RouteConstants.uriGenerateRRR + '?user=$user&amount=$amount',
       {},
