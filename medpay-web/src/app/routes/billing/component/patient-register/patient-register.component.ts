@@ -4,6 +4,9 @@ import {format} from 'date-fns';
 import {BillingService} from "../../billing.service";
 import {NgxSpinnerService} from "ngx-spinner";
 import {PatientPayload} from "../../_data/patient.payload";
+import {copy} from "@delon/util";
+import {Clipboard} from "@angular/cdk/clipboard";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
     selector: 'app-patient-register',
@@ -20,6 +23,8 @@ export class PatientRegisterComponent implements OnInit {
         private fb: FormBuilder,
         private service: BillingService,
         private spinner: NgxSpinnerService,
+        private clipboard: Clipboard,
+        private msg: NzMessageService
     ) {
     }
 
@@ -93,4 +98,12 @@ export class PatientRegisterComponent implements OnInit {
     }
 
 
+    protected readonly copy = copy;
+
+    public copyPatientNumber(value?: string) {
+        if (value){
+            this.clipboard.copy(value);
+            this.msg.success(`${value} copied!`);
+        }
+    }
 }

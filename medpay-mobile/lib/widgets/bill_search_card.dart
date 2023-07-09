@@ -21,7 +21,9 @@ class BillSearchCard extends StatelessWidget {
         ),
         elevation: 5,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: AppDimensions.height15, horizontal: AppDimensions.width15),
+          padding: EdgeInsets.symmetric(
+              vertical: AppDimensions.height15,
+              horizontal: AppDimensions.width15),
           child: Column(
             children: [
               Row(
@@ -103,6 +105,24 @@ class BillSearchCard extends StatelessWidget {
               Row(
                 children: [
                   TextMedium(
+                    text: 'Bill Status:',
+                    size: AppDimensions.fontSize14,
+                  ),
+                  Expanded(
+                    child: TextMedium(
+                      align: TextAlign.end,
+                      text: bill?.isPaid != null && bill?.isPaid == true
+                          ? 'PAID'
+                          : 'UNPAID',
+                      size: AppDimensions.fontSize14,
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: AppDimensions.height5 + 3),
+              Row(
+                children: [
+                  TextMedium(
                     text: 'Amount Payable',
                     size: AppDimensions.fontSize16,
                     weight: FontWeight.w600,
@@ -119,21 +139,24 @@ class BillSearchCard extends StatelessWidget {
               ),
               Align(
                 alignment: AlignmentDirectional.topEnd,
-                child: InkWell(
-                  onTap: () {
-                    HelperUtils.navigateToWithArgs(AppRoutes.paymentBillDetailScreen, bill);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: AppDimensions.height15),
-                    // height: 30,
-                    child: TextMedium(
-                      text: 'View Details',
-                      size: AppDimensions.fontSize12,
-                      weight: FontWeight.w400,
-                      color: ThemeColorStyle.appBlue,
-                    ),
-                  ),
-                ),
+                child: bill?.isPaid == false
+                    ? InkWell(
+                        onTap: () {
+                          HelperUtils.navigateToWithArgs(
+                              AppRoutes.paymentBillDetailScreen, bill);
+                        },
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: AppDimensions.height15),
+                            // height: 30,
+                            child: TextMedium(
+                              text: 'View Details',
+                              size: AppDimensions.fontSize15,
+                              weight: FontWeight.w500,
+                              color: ThemeColorStyle.appBlue,
+                            )),
+                      )
+                    : Container(),
               ),
             ],
           ),

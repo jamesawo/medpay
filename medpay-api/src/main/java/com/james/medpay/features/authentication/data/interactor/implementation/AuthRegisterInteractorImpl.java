@@ -45,7 +45,13 @@ public class AuthRegisterInteractorImpl implements IAuthRegisterInteractor {
 		userRequest.setEmail(request.getEmail());
 		userRequest.setUserTypeEnum(UserTypeEnum.REGULAR_USER);
 		userRequest.setPassword(request.getPassword());
-		userRequest.setNickName(request.getEmail());
+		String name = request.getName();
+		if (name.contains(" ")){
+			String[] names = name.split(" ");
+			userRequest.setNickName(names[0]);
+		} else {
+			userRequest.setNickName(name);
+		}
 		userRequest.setBasicDetails(getUserBasicDetails(request));
 		return userRequest;
 	}

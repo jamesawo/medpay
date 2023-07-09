@@ -30,4 +30,6 @@ class AppConstants {
   static const String keyHospitalAddress = 'keyHospitalAddress';
   static const String keyHospitalHasSoftware = 'keyHospitalHasSoftware';
   static const String keyHospitalCollectionMode = 'keyHospitalCollectionMode';
+
+  static const String devKey = "U09MRHw0MDgxOTUzOHw2ZDU4NGRhMmJhNzVlOTRiYmYyZjBlMmM1YzUyNzYwZTM0YzRjNGI4ZTgyNzJjY2NjYTBkMDM0ZDUyYjZhZWI2ODJlZTZjMjU0MDNiODBlMzI4YWNmZGY2OWQ2YjhiYzM2N2RhMmI1YWEwYTlmMTFiYWI2OWQxNTc5N2YyZDk4NA==";
 }

@@ -15,6 +15,10 @@ class HospitalRepository {
     return await apiClient.get(RouteConstants.uriGETHospitals, headers: apiClient.mainHeaders);
   }
 
+  Future<Response> getCurrentHospitalDetail(String hospitalId) async {
+    return await apiClient.get(RouteConstants.uriGETHospital+"/$hospitalId", headers: apiClient.mainHeaders);
+  }
+
   Future<Response> searchHospitalService(String term, String hospitalId) async {
     String query = '?title=$term&hospital=$hospitalId';
     return await apiClient.get(RouteConstants.uriSearchHospitalService + query, headers: apiClient.mainHeaders);

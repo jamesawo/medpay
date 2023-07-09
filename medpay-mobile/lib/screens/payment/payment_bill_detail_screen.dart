@@ -289,7 +289,8 @@ class _PaymentBillDetailScreenState extends State<PaymentBillDetailScreen> {
                     weight: FontWeight.w600,
                   ),
                   onPressed: () {
-                    processPayment();
+                    // processPayment();
+                    getAlertConfirmDialog();
                   },
                 ),
         );
@@ -300,5 +301,42 @@ class _PaymentBillDetailScreenState extends State<PaymentBillDetailScreen> {
   Future<void> processPayment() async {
     PaymentController paymentController = Get.find<PaymentController>();
     paymentController.handleBillPayment(widget.bill!, context);
+  }
+
+  Future<void> getAlertConfirmDialog() {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const TextSmall(text: 'Process Payment ?'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                TextSmall(
+                  text: 'Are you sure you want to continue?',
+                  size: AppDimensions.fontSize14,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const TextSmall(text: 'No, Cancel', color: ThemeColorStyle.appRed),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const TextSmall(text: 'Yes, Continue', color: ThemeColorStyle.appBlue),
+              onPressed: (){
+                Navigator.of(context).pop();
+                processPayment();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 }

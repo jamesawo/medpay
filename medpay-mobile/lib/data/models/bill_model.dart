@@ -1,3 +1,5 @@
+import 'package:medpay/data/models/hospital_service.dart';
+
 class HospitalBill {
   String? date;
   String? billNumber;
@@ -9,6 +11,8 @@ class HospitalBill {
   bool? hasPatient;
   bool? hasItems;
   bool? hasCashier;
+  List<HospitalService>? services;
+  bool? isPaid;
 
   HospitalBill({
     this.date,
@@ -34,9 +38,63 @@ class HospitalBill {
         hasCashier: json['hasCashier'],
         total: BillTotal.fromJson(json['total']),
         patient: BillPatient.fromJson(json['patient']),
-        items: List<BillItem>.from(json['items'].map((item) => BillItem.fromJson(item))),
+        items: List<BillItem>.from(
+            json['items'].map((item) => BillItem.fromJson(item))),
         cashier: BillCashier.fromJson(json['cashier']),
       );
+    }
+    return HospitalBill();
+  }
+
+  factory HospitalBill.fromInvoiceJson(dynamic json) {
+    if (json != null) {
+
+      var billItems = List<BillItem>.from(
+        json['items'].map(
+          (item) => BillItem(
+              quantity: "",
+              description: item["service"]["title"],
+              amount: item["amount"].toString()),
+        ),
+      );
+
+      var servicesItems = List<HospitalService>.from(
+        json['items'].map(
+          (item) => HospitalService(
+            title: item["service"]["title"],
+            code: "",
+            id: item["service"]["id"],
+            isEnabled: true,
+          ),
+        ),
+      );
+
+      var bill = HospitalBill(
+        date: json['createdAt'],
+        billNumber: json['billNumber'].toString(),
+        hasTotal: true,
+        hasPatient: true,
+        hasItems: true,
+        hasCashier: false,
+        total: BillTotal(
+            netAmount: json['billAmount'].toString(),
+            discountAmount: '0',
+            grossAmount: '0'),
+        patient: BillPatient(
+            phoneNumber: json['patient']['phone'],
+            fullName: json['patient']['fullName'],
+            patientNumber: json['patient']['uniqueCode']),
+        items: billItems,
+        cashier: BillCashier(
+          name: json["createdBy"]["nickName"],
+          location: "",
+        ),
+      );
+
+      bill.services = servicesItems;
+      bill.isPaid = json['status'] != null && json['status'] == 'PAID';
+
+      return bill;
     }
     return HospitalBill();
   }

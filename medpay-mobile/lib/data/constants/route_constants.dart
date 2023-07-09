@@ -11,6 +11,7 @@ class RouteConstants {
   static const String uriLogin = appBaseURL + 'auth/login';
 
   static const String uriGETHospitals = appBaseURL + 'hospital/all';
+  static const String uriGETHospital = appBaseURL + 'hospital';
   static const String uriGetHospitalSearchBill = appBaseURL + 'hospital/search-bill';
   static const String uriSearchHospitalService = appBaseURL + 'hospital-service/search-by-title';
 
@@ -18,10 +19,16 @@ class RouteConstants {
   static const String uriGETUser = appBaseURL + 'users/get/';
 
   // transaction
-  static const String uriSearchBillNumber = appBaseURL + 'hospital-api-usage/bill';
+  static const String uriSearchBillNumber = appBaseURL + 'hospital-api-usage/bill';  // searching billNumber from 3rd part api
   static const String uriPostServicePayment = appBaseURL + 'transaction/create';
 
-  static const String uriGenerateRRR = appBaseURL + 'transaction/generate-rrr/';
   static const String uriSaveTransaction = appBaseURL + 'transaction/pay-bill';
   static const String uriGetTransactions = appBaseURL + 'transaction/recent-by-hospital-and-user';
+
+  // invoice
+  static const String uriSearchInvoiceNumber = appBaseURL + 'billing/search'; // searching app billNumber
+
+  // gateway
+  static const String uriGenerateRRR = appBaseURL + 'gateway/generate-rrr';
+
 }
