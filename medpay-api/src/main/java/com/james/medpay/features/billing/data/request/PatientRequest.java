@@ -28,4 +28,5 @@ public class PatientRequest {
 	private Integer patientNumber;
 	private String patientNumberPrefix;
 	private String uniqueCode;
+	private String fullName;
 }

@@ -49,4 +49,8 @@ public class Patient {
 		this.createdAt = LocalDate.now();
 	}
 
+	public String getFullName(){
+		return String.format("%s %s %s", this.firstName, this.lastName, this.otherName);
+	}
+
 }

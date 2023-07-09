@@ -37,7 +37,9 @@ public class PatientInteractor  {
 
 	public static PatientRequest toRequest(Patient patient) {
 		ModelMapper mapper = new ModelMapper();
-		return mapper.map(patient, PatientRequest.class);
+		PatientRequest patientRequest = mapper.map(patient, PatientRequest.class);
+		patientRequest.setFullName(patient.getFullName());
+		return patientRequest;
 	}
 
 	public ResponseEntity<PatientRequest> register(PatientRequest patient) {
