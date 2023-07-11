@@ -18,7 +18,7 @@ declare var RmPaymentEngine: any;
 export class RemittaGatewayService {
 
     private url: string = environment.api.baseUrl + '/gateway';
-    private remittaKey = environment['remittaKey'];
+    private demoKey = "QzAwMDAxOTUwNjl8NDMyNTkxNjl8ZTg0MjI2MDg4MjU0NzA2NTY2MTYwNGU1NjNiMjUzYjk4ZDQwZjljZGFiMTVmYTljMDUwMGQ0MDg2MjIyYjEyNTA1ZTE2MTMxNmE3ZjM1OTZmYmJkOTE2MTRiY2NmZTY5NTM4MGQ2MDBlZGJlZmM2ODc2YTc2M2M4MjgyZmFjODc=";
     private REMITTA_DEMO = 'https://remitademo.net/payment/v1/remita-pay-inline.bundle.js';
 
     constructor(private http: HttpClient, private scriptService: ScriptService) {
@@ -32,7 +32,7 @@ export class RemittaGatewayService {
 
     public handleRemittaPayment(rrr: string, callBack?: RemittaCallBack, transaction?: TransactionPayload) {
         let paymentEngine: any = RmPaymentEngine.init({
-            key: this.remittaKey,
+            key: this.demoKey,
             processRrr: true,
             transactionId: Math.floor(Math.random() * 1101233), //replace in production
             extendedData: {
