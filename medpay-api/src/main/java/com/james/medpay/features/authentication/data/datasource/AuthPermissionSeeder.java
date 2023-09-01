@@ -68,9 +68,6 @@ public class AuthPermissionSeeder implements CommandLineRunner {
     }
 
     private void seedDefaultSystemUser() {
-        System.out.println(systemUser);
-        System.out.println(systemPassword);
-        System.out.println(systemEmail);
 
         if (systemUser != null && systemPassword != null && systemEmail != null) {
             Optional<IUserEntity> optional = this.userDataRepository.getByEmail(systemUser);
