@@ -79,7 +79,8 @@ public class AuthPermissionSeeder implements CommandLineRunner {
                 user.setEmail(SUPER_ADMIN_EMAIL);
                 user.setExpiryDate(LocalDate.MAX);
                 user.setPassword(SUPER_ADMIN_PASSWORD);
-                user.setRoles(Set.of(this.role));
+                Optional<Role> defRole = this.roleRepository.findByName(DEFAULT_SUPER_ADMIN_ROLE);
+                defRole.ifPresent((role) -> user.setRoles(Set.of(role)));
                 user.setUserTypeEnum(SUPER_USER);
                 this.setUserBasicDetails(user);
                 this.userDataRepository.createUser(user);
