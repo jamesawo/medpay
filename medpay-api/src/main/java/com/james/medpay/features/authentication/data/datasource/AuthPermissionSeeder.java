@@ -36,19 +36,16 @@ public class AuthPermissionSeeder implements CommandLineRunner {
     private IAuthPermissionDataRepository permissionRepository;
 
     @Value(value = "${app.system.username}")
-    public static String SUPER_ADMIN_USERNAME;
+    public String systemUser;
 
     @Value(value = "${app.system.email}")
-    public static String SUPER_ADMIN_EMAIL;
+    public String systemEmail;
 
     @Value(value = "${app.system.password}")
-    public static String SUPER_ADMIN_PASSWORD;
-
-    private Set<Permission> permissions = null;
-    private Role role = null;
+    public String systemPassword;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         this.seed();
     }
 
@@ -64,21 +61,25 @@ public class AuthPermissionSeeder implements CommandLineRunner {
             Role role = new Role();
             role.setName(DEFAULT_SUPER_ADMIN_ROLE);
             role.setDescription("Default Role");
-            role.setPermissions(this.permissions);
-            this.role = this.roleRepository.save(role);
+            role.setPermissions(new HashSet<>(this.permissionRepository.findAll()));
+            this.roleRepository.save(role);
             System.out.println("----- seeded role ----");
         }
     }
 
     private void seedDefaultSystemUser() {
-        if (SUPER_ADMIN_USERNAME != null && SUPER_ADMIN_PASSWORD != null && SUPER_ADMIN_EMAIL != null) {
-            Optional<IUserEntity> optional = this.userDataRepository.getByEmail(SUPER_ADMIN_USERNAME);
+        System.out.println(systemUser);
+        System.out.println(systemPassword);
+        System.out.println(systemEmail);
+
+        if (systemUser != null && systemPassword != null && systemEmail != null) {
+            Optional<IUserEntity> optional = this.userDataRepository.getByEmail(systemUser);
             if (optional.isEmpty()) {
                 UserEntity user = new UserEntity();
-                user.setNickName(SUPER_ADMIN_USERNAME);
-                user.setEmail(SUPER_ADMIN_EMAIL);
+                user.setNickName(systemUser);
+                user.setEmail(systemEmail);
                 user.setExpiryDate(LocalDate.MAX);
-                user.setPassword(SUPER_ADMIN_PASSWORD);
+                user.setPassword(systemPassword);
                 Optional<Role> defRole = this.roleRepository.findByName(DEFAULT_SUPER_ADMIN_ROLE);
                 defRole.ifPresent((role) -> user.setRoles(Set.of(role)));
                 user.setUserTypeEnum(SUPER_USER);
@@ -112,8 +113,7 @@ public class AuthPermissionSeeder implements CommandLineRunner {
             addServiceGroupPermissions(permissions);
             addRevenueHeadPermissions(permissions);
             addServicePermissions(permissions);
-            List<Permission> list = this.permissionRepository.saveAll(permissions);
-            this.permissions = new HashSet<>(list);
+            this.permissionRepository.saveAll(permissions);
             System.out.println("------ seeded permissions  -------");
         }
 
