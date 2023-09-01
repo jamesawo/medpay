@@ -1,5 +1,12 @@
 # MedPay -  Application
-The MedPay application is designed to revolutionize the way patients pay their hospital bills. It offers a seamless and hassle-free experience, eliminating the traditional complexities associated with medical bill payments. MedPay aims to save patients valuable time while enabling hospitals to provide a convenient payment solution to patients worldwide.
+
+MedPay application is designed to revolutionize the way patients pay their hospital bills. It offers a seamless and hassle-free experience, eliminating the traditional complexities associated with medical bill payments. MedPay aims to save patients valuable time while enabling hospitals to provide a convenient payment solution to patients worldwide.
+
+## System Components
+
+- Mobile Application: IOS and Android application that Empowers patients to effortlessly settle their hospital bills.
+- Web Application (Patient & Hospital Agent): Similar features in mobile application but simplifying the payment process for both patients and hospital agents.
+- Web Application (Hospital Administration): Streamlining hospital administrative tasks and record management.
 
 ## Key Features and Functionalities
 - Streamlined Hospital Payment Management: 
@@ -32,16 +39,18 @@ Medpay is built using the following technologies:
 
 To run Medpay on your local machine, make sure you have Java, Maven, Node & NPM installed 
 
-then follow these steps:
+then follow these steps below or check out my [blog post](https://medpay.jamesaworo.com) on my [website](https://jamesaworo.com) 
+
 
 ```bash
-  git clone https://github.com/jlearna/medpay.git
+  git clone https://github.com/jamesawo/medpay.git
 
   cd medpay
 
   mvn clean package
 
 ```
+
 
 ## Authors
 - Aworo James Junior
