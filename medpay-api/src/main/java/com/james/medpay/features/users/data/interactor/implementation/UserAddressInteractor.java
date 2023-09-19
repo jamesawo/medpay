@@ -20,7 +20,6 @@ import static org.springframework.http.ResponseEntity.ok;
 @Interactor
 @RequiredArgsConstructor
 public class UserAddressInteractor implements IUserAddressInteractor {
-
 	private final UserUpdateAddressUsecase updateAddressUsecase;
 	private final UserUpdateEmergencyAddressUsecase updateEmergencyAddressUsecase;
 	private final UserGetAddressByUserUsecase getAddressByUserUsecase;

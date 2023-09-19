@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserEInteractor {
-	
 	ResponseEntity<UserRequest> createUser( UserRequest user );
 
 	ResponseEntity<Optional<UserRequest>> getUserById( Long id, boolean trim );
@@ -22,8 +21,6 @@ public interface IUserEInteractor {
 	ResponseEntity<Optional<Boolean>> updateUserTypeById( Long id, UserTypeEnum userType );
 
 	ResponseEntity<List<UserRequest>> getAllUsers(boolean trim );
-
-	//ResponseEntity<Page<UserRequest>> getUserPaginate();
 
 	ResponseEntity<List<UserRequest>> searchByRequestCriteria( UserSearchRequest request );
 

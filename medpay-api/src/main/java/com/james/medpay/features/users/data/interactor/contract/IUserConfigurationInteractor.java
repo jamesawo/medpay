@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
 public interface IUserConfigurationInteractor {
-
 	ResponseEntity<Optional<UserConfigurationRequest>> getConfigurationByUserId( Long userId );
 
 	ResponseEntity<Optional<UserConfigurationRequest>> updateConfigurationByUserId(

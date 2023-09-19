@@ -22,7 +22,6 @@ import static org.springframework.http.ResponseEntity.ok;
 @Interactor
 @RequiredArgsConstructor
 public class UserConfigurationInteractor implements IUserConfigurationInteractor {
-
 	private final UserGetConfigurationUsecase getConfigurationUsecase;
 	private final UserUpdateConfigurationStatusUsecase updateConfigurationStatusUsecase;
 	private final UserUpdateConfigurationUsecase updateConfigurationUsecase;

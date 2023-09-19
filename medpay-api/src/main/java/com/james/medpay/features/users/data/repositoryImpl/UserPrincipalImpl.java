@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 
 
 public class UserPrincipalImpl implements UserDetails {
-	// UserDetails implementation
-
 	private final UserEntity user;
 	private final IUserDetailsRepository detailsRepository;
 
@@ -21,7 +19,6 @@ public class UserPrincipalImpl implements UserDetails {
 		this.user = user;
 		this.detailsRepository = detailsRepository;
 	}
-
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,17 +56,4 @@ public class UserPrincipalImpl implements UserDetails {
 		return this.user.getIsEnabled();
 	}
 
-	/*
-	private List<String> findUserPermissionsNameOnly( UserEntity user ) {
-		Collection<Permission> permissions = this.findUserPermissionsFromRoles( user.getRoles() );
-		return permissions.stream().map( Permission::getName ).collect( Collectors.toList() );
-	}
-
-	private Collection<Permission> findUserPermissionsFromRoles( Collection<Role> roles ) {
-		Collection<Permission> permissions = new ArrayList<>();
-		roles.stream().map( Role::getPermissions ).forEachOrdered( permissions::addAll );
-		return permissions;
-	}
-
-	 */
 }

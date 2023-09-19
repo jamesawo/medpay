@@ -17,7 +17,6 @@ import java.util.Optional;
 @Interactor
 @RequiredArgsConstructor
 public class UserBasicDetailsInteractor implements IUserBasicDetailsInteractor {
-
 	private final UserGetBasicDetailsUsecase getBasicDetailsUsecase;
 	private final UserUpdateBasicDetailsUsecase updateBasicDetailsUsecase;
 

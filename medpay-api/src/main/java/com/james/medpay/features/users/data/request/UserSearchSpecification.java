@@ -118,7 +118,6 @@ public class UserSearchSpecification {
 	private static void addEmailOrNickNameOrPhoneOrOtherNamesToPredicateList(
 			List<Predicate> predicates, String searchTerm,
 			CriteriaBuilder criteriaBuilder) {
-
 		Predicate emailPredicate = emailPredicate(searchTerm, criteriaBuilder);
 		Predicate nNamePredicate = nickNamePredicate(searchTerm, criteriaBuilder);
 		Predicate phonePredicate = phonePredicate(searchTerm, criteriaBuilder);

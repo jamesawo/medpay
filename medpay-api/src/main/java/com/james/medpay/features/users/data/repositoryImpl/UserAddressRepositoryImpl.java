@@ -20,7 +20,6 @@ import static java.util.Optional.of;
 @RepositoryImpl
 @RequiredArgsConstructor
 public class UserAddressRepositoryImpl implements IUserAddressRepository {
-
 	private final IUserAddressDataRepository addressDataRepository;
 	private final IUserDataRepository userDataRepository;
 

@@ -14,7 +14,6 @@ import java.util.Optional;
 @RepositoryImpl
 @RequiredArgsConstructor
 public class UserBasicDetailRepositoryImpl implements IUserBasicDetailRepository {
-
 	private final IUserDataRepository userDataRepository;
 	private final IUserBasicDetailsDataRepository basicDetailsDataRepository;
 

@@ -18,7 +18,6 @@ import static java.util.Optional.of;
 @RepositoryImpl
 @RequiredArgsConstructor
 public class UserConfigurationRepositoryImpl implements IUserConfigurationRepository {
-
 	private final IUserDataRepository userDataRepository;
 	private final IUserConfigurationDataRepository configurationDataRepository;
 

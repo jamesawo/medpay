@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
 public interface IUserAddressInteractor {
-
 	ResponseEntity<Optional<UserAddressRequest>> getAddressByUserIdAndAddressType(
 			Long userId, AddressTypeEnum addressType
 	);

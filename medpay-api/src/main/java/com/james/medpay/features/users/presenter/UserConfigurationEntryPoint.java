@@ -17,9 +17,7 @@ import static com.james.medpay.core.constant.Routes.API_PREFIX;
 @RequestMapping( value = API_PREFIX + "/user-configuration" )
 @RequiredArgsConstructor
 public class UserConfigurationEntryPoint {
-
 	private final UserConfigurationInteractor interactor;
-
 
 	@GetMapping( value = "{userId}" )
 	public ResponseEntity<Optional<UserConfigurationRequest>> getByUserId(

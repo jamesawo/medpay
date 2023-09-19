@@ -8,6 +8,7 @@ import com.james.medpay.features.users.domain.entity.UserEntity;
 import com.james.medpay.features.users.domain.entity.contract.IUserEntity;
 import com.james.medpay.features.users.domain.repository.contract.IUserDetailsRepository;
 import com.james.medpay.features.users.domain.usecase.usersBaseUsecase.UserGetByEmailUsecase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,10 +24,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RepositoryImpl
+@RequiredArgsConstructor
 public class UserDetailsRepositoryImpl implements IUserDetailsRepository, UserDetailsService {
 
-	@Autowired
-	private UserGetByEmailUsecase usecase;
+	private final UserGetByEmailUsecase usecase;
 
 	private static final String NO_USER_FOUND = "No user found ";
 
@@ -57,7 +58,6 @@ public class UserDetailsRepositoryImpl implements IUserDetailsRepository, UserDe
 		return permissions;
 	}
 
-	// UserDetailsService implementation
 	@Override
 	public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException {
 		Optional<IUserEntity> optional = this.usecase.execute( username );
